@@ -1,18 +1,52 @@
-'use client';
+"use client";
 
-import { keycloak, keycloakInitOptions } from "@/keyckloak";
-import { store } from "@/storage/store";
+import React, { useState, useEffect } from "react";
 import { ReactKeycloakProvider } from "@react-keycloak/web";
+// Используем максимально точные пути для устранения ошибок разрешения модулей
+import keycloak from "../keyckloak/index";
 import { Provider } from "react-redux";
+import { store } from "../storage/store";
 
-const Providers = ({ children }: { children: React.ReactNode }) => {
+/**
+ * Провайдеры приложения с исправленными путями и логикой инициализации.
+ */
+export const Providers = ({ children }: { children: React.ReactNode }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Предотвращаем рендеринг на сервере, так как Keycloak требует window
+  if (!mounted || !keycloak) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-white dark:bg-zinc-950">
+        <div className="text-sm font-medium text-zinc-500 animate-pulse">
+          Инициализация системы...
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Provider store={store}>
-      <ReactKeycloakProvider authClient={keycloak} initOptions={keycloakInitOptions}>
+      <ReactKeycloakProvider 
+        authClient={keycloak}
+        initOptions={{
+          onLoad: "login-required",
+          checkLoginIframe: true,
+          pkceMethod: "S256",
+          flow: "standard",
+        }}
+        onEvent={(event, error) => {
+          console.log('Keycloak Event:', event);
+          if (error) {
+            console.error('Keycloak Error Details:', error);
+          }
+        }}
+      >
         {children}
       </ReactKeycloakProvider>
     </Provider>
   );
 };
-
-export default Providers;

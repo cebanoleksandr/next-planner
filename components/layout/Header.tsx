@@ -10,7 +10,7 @@ import LogoutPopup from '../popups/LogoutPopup';
 import { ISidebarItem } from '@/utils/interfaces';
 import ContextMenu, { IContextMenuItem } from '../UI/ContextMenu';
 import { useRouter } from 'next/navigation';
-import { keycloak } from '@/keyckloak';
+import keycloak from '@/keyckloak';
 // import BaseButton from '../UI/BaseButton';
 // import LogoutPopup from '../popups/LogoutPopup';
 // import MobileMenu from './MobileMenu';
