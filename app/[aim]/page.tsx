@@ -2,7 +2,7 @@
 
 import Column from "@/components/business/aims/Column";
 import { useAppSelector } from "@/storage/hooks";
-import { IGoalCard } from "@/utils/interfaces";
+import { IGoal } from "@/utils/interfaces";
 import { notFound, usePathname } from "next/navigation";
 import { useMemo } from "react";
 
@@ -18,7 +18,7 @@ const AimPage = () => {
     notFound();
   }
 
-  const goalCards: IGoalCard[] = [
+  const goalCards: IGoal[] = [
   {
     id: '1',
     goalTypeId: 'health',

@@ -1,0 +1,33 @@
+import { apiClient } from '../index';
+import { IGoal } from '@/utils/interfaces';
+
+export const GoalService = {
+  async getAll(page = 0, size = 20) {
+    const { data } = await apiClient.get<IGoal[]>(`/api/goals?page=${page}&size=${size}`);
+    return data;
+  },
+
+  async getById(id: string) {
+    const { data } = await apiClient.get<IGoal>(`/api/goals/${id}`);
+    return data;
+  },
+
+  async create(goalData: Omit<IGoal, 'id'>) {
+    const { data } = await apiClient.post<IGoal>('/api/goals', goalData);
+    return data;
+  },
+
+  async update(id: string, goalData: Partial<IGoal>) {
+    const { data } = await apiClient.put<IGoal>(`/api/goals/${id}`, goalData);
+    return data;
+  },
+
+  async delete(id: string) {
+    await apiClient.delete(`/api/goals/${id}`);
+  },
+
+  async getByUser(userId: string, page = 0, size = 20) {
+    const { data } = await apiClient.get<IGoal[]>(`/api/goals/user/${userId}?page=${page}&size=${size}`);
+    return data;
+  }
+};

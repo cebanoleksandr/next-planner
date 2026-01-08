@@ -8,7 +8,8 @@ import { useAppDispatch, useAppSelector } from "@/storage/hooks";
 import { AdjustmentsHorizontalIcon, CalendarIcon, Squares2X2Icon } from "@heroicons/react/24/solid";
 import { ISidebarItem } from "@/utils/interfaces";
 import { useKeycloak } from "@react-keycloak/web";
-import { axiosPrivate } from "@/api";
+import { apiClient } from "@/api";
+import { useGetGoalTypesQuery } from "@/react-query/queries/goalTypesQueries/useGetGoalTypesQuery";
 
 interface IProps {
   children: ReactNode;
@@ -16,7 +17,11 @@ interface IProps {
 
 const MainLayout: FC<IProps> = ({ children }) => {
   const { keycloak, initialized } = useKeycloak();
+  const { goalTypes } = useGetGoalTypesQuery();
+  
   const dispatch = useAppDispatch();
+
+  console.log('goalTypes', goalTypes);
 
   const getUser = async (id: string) => {
     // try {
@@ -38,7 +43,7 @@ const MainLayout: FC<IProps> = ({ children }) => {
     if (!initialized) return;
     if (!keycloak.authenticated) return;
     
-    axiosPrivate.defaults.headers['Authorization'] = `Bearer ${keycloak.token}`;
+    apiClient.defaults.headers['Authorization'] = `Bearer ${keycloak.token}`;
     console.log("UserId:", keycloak.tokenParsed?.sub);
 
     if (!!keycloak.tokenParsed?.sub) {

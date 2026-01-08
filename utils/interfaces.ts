@@ -20,7 +20,7 @@ export interface IGoalType {
   title: string;
   level: number;
   userId: string;
-  goalCards: IGoalCard[];
+  goalCards: IGoal[];
   customFields: ICustomFieldDefinition[];
 }
 
@@ -38,14 +38,14 @@ export enum CustomFieldType {
   DATE = 'DATE',
 }
 
-export interface IGoalCard {
+export interface IGoal {
   id: string;
   goalTypeId: string;
   title: string;
   description: string;
   labels: ILabel[];
   checkList: ICheckList[];
-  customFieldAnswers?: ICustomFieldAnswer[]
+  customFieldAnswers?: ICustomFieldAnswer[];
 }
 
 export interface ILabel {

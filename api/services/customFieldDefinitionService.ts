@@ -1,0 +1,19 @@
+import { apiClient } from '../index';
+import { ICustomFieldDefinition } from '@/utils/interfaces';
+
+export const CustomFieldDefinitionService = {
+  async getAll() {
+    const { data } = await apiClient.get<ICustomFieldDefinition[]>('/api/custom-fields/definitions');
+    return data;
+  },
+
+  async getByGoalType(goalTypeId: string) {
+    const { data } = await apiClient.get<ICustomFieldDefinition[]>(`/api/custom-fields/definitions/type/${goalTypeId}`);
+    return data;
+  },
+
+  async create(definitionData: Partial<ICustomFieldDefinition>) {
+    const { data } = await apiClient.post<ICustomFieldDefinition>('/api/custom-fields/definitions', definitionData);
+    return data;
+  }
+};

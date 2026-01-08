@@ -1,12 +1,12 @@
 'use client';
 
-import { IGoalCard } from "@/utils/interfaces";
+import { IGoal } from "@/utils/interfaces";
 import { FC } from "react";
 import Tag from "./Tag";
 import { Bars3BottomLeftIcon } from "@heroicons/react/24/outline";
 
 interface IProps {
-  goalCard: IGoalCard;
+  goalCard: IGoal;
 }
 
 const GoalCard: FC<IProps> = ({ goalCard }) => {

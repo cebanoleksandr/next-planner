@@ -1,13 +1,13 @@
 import Button from "@/components/UI/Button";
 import GoalCard from "@/components/UI/GoalCard";
-import { IGoalCard } from "@/utils/interfaces";
+import { IGoal } from "@/utils/interfaces";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/react/24/solid";
 import cn from "classnames";
 import { FC, HTMLAttributes } from "react";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
-  goalCards: IGoalCard[];
+  goalCards: IGoal[];
 }
 
 const Column: FC<IProps> = ({ title, goalCards, ...props }) => {
