@@ -10,6 +10,8 @@ import { ISidebarItem } from "@/utils/interfaces";
 import { useKeycloak } from "@react-keycloak/web";
 import { apiClient } from "@/api";
 import { useGetGoalTypesQuery } from "@/react-query/queries/goalTypesQueries/useGetGoalTypesQuery";
+import { setSidebarItems } from "@/storage/sidebarItemsSlice";
+import { getSidebarOptions } from "@/utils/helpers";
 
 interface IProps {
   children: ReactNode;
@@ -51,12 +53,16 @@ const MainLayout: FC<IProps> = ({ children }) => {
     }
   }, [initialized, keycloak, keycloak.token]);
 
+  // useEffect(() => {
+  //   dispatch(setSidebarItems(getSidebarOptions(goalTypes)));
+  // }, [goalTypes]);
+
   const options = useAppSelector((state) => state.sidebarItems.items);
 
   const sidebarItems: ISidebarItem[] = useMemo(() => [
+    ...options,
     { id: 'dashboard', title: 'Dashboard', icon: Squares2X2Icon, href: '/' },
     { id: 'calendar', title: 'Calendar', icon: CalendarIcon, href: '/calendar' },
-    ...options,
     { id: 'configuration', title: 'Configuration', icon: AdjustmentsHorizontalIcon, href: '/configuration' },
   ], [options]);
 

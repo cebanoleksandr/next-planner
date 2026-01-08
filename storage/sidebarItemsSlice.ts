@@ -7,9 +7,7 @@ interface SidebarItemsState {
 }
 
 const initialState: SidebarItemsState = {
-  items: [
-    { id: 'aims', title: 'Aims', icon: TrophyIcon, href: '/aims' },
-  ],
+  items: [],
 };
 
 const sidebarItemsSlice = createSlice({
