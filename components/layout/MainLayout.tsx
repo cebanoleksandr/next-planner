@@ -4,13 +4,11 @@ import { FC, ReactNode, useEffect, useMemo } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import Alert from "../UI/Alert";
-import { useAppDispatch, useAppSelector } from "@/storage/hooks";
 import { AdjustmentsHorizontalIcon, CalendarIcon, Squares2X2Icon } from "@heroicons/react/24/solid";
 import { ISidebarItem } from "@/utils/interfaces";
 import { useKeycloak } from "@react-keycloak/web";
 import { apiClient } from "@/api";
 import { useGetGoalTypesQuery } from "@/react-query/queries/goalTypesQueries/useGetGoalTypesQuery";
-import { setSidebarItems } from "@/storage/sidebarItemsSlice";
 import { getSidebarOptions } from "@/utils/helpers";
 
 interface IProps {
@@ -20,10 +18,6 @@ interface IProps {
 const MainLayout: FC<IProps> = ({ children }) => {
   const { keycloak, initialized } = useKeycloak();
   const { goalTypes } = useGetGoalTypesQuery();
-  
-  const dispatch = useAppDispatch();
-
-  console.log('goalTypes', goalTypes);
 
   const getUser = async (id: string) => {
     // try {
@@ -36,8 +30,6 @@ const MainLayout: FC<IProps> = ({ children }) => {
   }
 
   useEffect(() => {
-    console.log('initialized', initialized)
-    console.log('authenticated', keycloak.authenticated)
     if (initialized && !keycloak.authenticated) {
       keycloak.login();
     }
@@ -46,18 +38,13 @@ const MainLayout: FC<IProps> = ({ children }) => {
     if (!keycloak.authenticated) return;
     
     apiClient.defaults.headers['Authorization'] = `Bearer ${keycloak.token}`;
-    console.log("UserId:", keycloak.tokenParsed?.sub);
 
     if (!!keycloak.tokenParsed?.sub) {
       getUser(keycloak.tokenParsed?.sub);
     }
   }, [initialized, keycloak, keycloak.token]);
 
-  // useEffect(() => {
-  //   dispatch(setSidebarItems(getSidebarOptions(goalTypes)));
-  // }, [goalTypes]);
-
-  const options = useAppSelector((state) => state.sidebarItems.items);
+  const options = useMemo(() => getSidebarOptions(goalTypes), [goalTypes]);
 
   const sidebarItems: ISidebarItem[] = useMemo(() => [
     ...options,
@@ -67,7 +54,6 @@ const MainLayout: FC<IProps> = ({ children }) => {
   ], [options]);
 
   return (
-
     <div className='flex min-h-screen w-full bg-gray-100'>
       <div className='hidden md:block md:w-64 md:shrink-0'>
         <Sidebar sidebarItems={sidebarItems} />

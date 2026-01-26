@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { IGoalType } from '@/utils/interfaces';
+import { ICreateGoalType } from '@/utils/interfaces';
 import { GoalTypeService } from '@/api/services/goalTypeServise';
 import { EQueries } from '@/react-query/types';
 import { useAppDispatch } from '@/storage/hooks';
@@ -10,9 +10,10 @@ export const useCreateGoalTypeMutation = () => {
   const dispatch = useAppDispatch();
 
   const createMutation = useMutation({
-    mutationFn: (goalTypeData: Partial<IGoalType>) => GoalTypeService.create(goalTypeData),
+    mutationFn: (goalTypeData: ICreateGoalType) => GoalTypeService.create(goalTypeData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [EQueries.getGoalTypes] });
+      dispatch(setAlertAC({ text: 'Goal type created successfully', mode: 'success' }));
     },
     onError: error => {
       dispatch(setAlertAC({ text: error.message, mode: 'error' }));

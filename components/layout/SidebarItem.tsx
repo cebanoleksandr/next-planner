@@ -3,15 +3,10 @@
 import { FC } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-export interface ISidebarIcon {
-  title: string;
-  icon: React.ElementType;
-  href: string;
-}
+import { ISidebarItem } from "@/utils/interfaces";
 
 interface IProps {
-  item: ISidebarIcon;
+  item: ISidebarItem;
 }
 
 const SidebarItem: FC<IProps> = ({ item }) => {
@@ -21,7 +16,7 @@ const SidebarItem: FC<IProps> = ({ item }) => {
   return (
     <li className="relative mb-0.5 flex items-center justify-between rounded-xl cursor-pointer overflow-hidden">
       <Link
-        href={item.href}
+        href={'/' + item.id}
         className={`
           flex gap-3 items-center text-yellow-300 w-full h-full p-2 rounded-xl transition-colors duration-200 ease-in-out
           ${isActive

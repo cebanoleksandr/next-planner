@@ -12,6 +12,7 @@ export const useCreateCustomFieldDefinitionMutation = () => {
   const createMutation = useMutation({
     mutationFn: (customFieldDefinition: Partial<ICustomFieldDefinition>) => CustomFieldDefinitionService.create(customFieldDefinition),
     onSuccess: () => {
+      dispatch(setAlertAC({ text: 'Goal Type created successfully', mode: 'success' }));
       queryClient.invalidateQueries({ queryKey: [EQueries.createCustomFieldDefinition] });
     },
     onError: error => {

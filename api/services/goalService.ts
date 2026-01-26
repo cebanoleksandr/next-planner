@@ -1,9 +1,9 @@
 import { apiClient } from '../index';
-import { IGoal } from '@/utils/interfaces';
+import { IGoal, IPage } from '@/utils/interfaces';
 
 export const GoalService = {
   async getAll(page = 0, size = 20) {
-    const { data } = await apiClient.get<IGoal[]>(`/api/goals?page=${page}&size=${size}`);
+    const { data } = await apiClient.get<IPage<IGoal[]>>(`/api/goals?page=${page}&size=${size}`);
     return data;
   },
 

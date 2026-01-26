@@ -10,6 +10,7 @@ export const useGetGoalTypeById = (id: string) => {
   const fetchInitial = async () => {
     try {
       const data = await GoalTypeService.getById(id);
+      console.log('Fetched goal type data:', data);
       return data;
     } catch (error: any) {
       dispatch(setAlertAC({ text: 'Something went wrong. Cannot get data.', mode: 'error' }));

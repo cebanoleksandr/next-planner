@@ -18,10 +18,22 @@ export type ISidebarItem = {
 export interface IGoalType {
   id: string;
   title: string;
-  level: number;
+  levelNumber: number;
   userId: string;
   goalCards: IGoal[];
   customFields: ICustomFieldDefinition[];
+}
+
+export type ICreateCustomFieldDefinition = Omit<ICustomFieldDefinition, 'id' | 'key'> & {
+  id?: string;
+  key?: string;
+};
+
+export interface ICreateGoalType {
+  title: string;
+  customFields: ICreateCustomFieldDefinition[];
+  levelNumber?: number;      // Тепер необов'язково
+  goalCards?: IGoal[]; // Тепер необов'язково
 }
 
 export interface ICustomFieldDefinition {
@@ -56,7 +68,7 @@ export interface ILabel {
 
 export type RepeatType = 'NEVER' | 'DAILY' | 'WEEKDAY' | 'WEEKLY' | 'MONTHLY';
 
-export interface IComment {}
+export interface IComment { }
 
 export interface ICheckList {
   id: string;
@@ -69,4 +81,46 @@ export interface ICustomFieldAnswer {
   value: string;
   customFieldId: string;
   goalCardId: string;
+}
+
+// Интерфейс для Spring Page
+export interface IPage<T> {
+  content: T[];
+  pageable: Pageable;
+  totalPages: number;
+  totalElements: number;
+  last: boolean;
+  size: number;
+  number: number;         // текущая страница (0-based)
+  sort: Sort;
+  first: boolean;
+  numberOfElements: number;
+  empty: boolean;
+}
+
+export interface Pageable {
+  sort: Sort;
+  offset: number;
+  pageNumber: number;
+  pageSize: number;
+  paged: boolean;
+  unpaged: boolean;
+}
+
+export interface Sort {
+  empty: boolean;
+  sorted: boolean;
+  unsorted: boolean;
+}
+
+// Параметры для запроса пагинации
+export interface PageRequest {
+  page?: number;      // номер страницы (0-based)
+  size?: number;      // размер страницы
+  sort?: string;      // например: "levelNumber,asc"
+}
+
+export interface IOption { 
+  value: string;
+  key: string;
 }

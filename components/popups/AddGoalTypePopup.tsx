@@ -1,0 +1,43 @@
+'use client';
+
+import { FC } from 'react';
+import BasePopup from './BasePopup';
+import { XMarkIcon } from '@heroicons/react/24/solid';
+import CreateGoalTypeForm from '../forms/CreateGoalTypeForm';
+import { ICreateGoalType } from '@/utils/interfaces';
+import { useCreateGoalTypeMutation } from '@/react-query/mutations/goalTypesMutations/useCreateGoalTypeMutation';
+
+interface IProps {
+  isVisible: boolean;
+  onClose: () => void;
+}
+
+const AddGoalTypePopup: FC<IProps> = ({ isVisible, onClose }) => {
+  const { createGoalType } = useCreateGoalTypeMutation();
+
+  const onCreate = (goalTypeData: ICreateGoalType) => {
+    console.log('Creating goal type with data:', goalTypeData);
+    createGoalType(goalTypeData);
+    onClose();
+  }
+
+  return (
+    <BasePopup isVisible={isVisible} onClose={onClose}>
+      <div className="flex flex-col">
+        <div className='flex justify-end'>
+          <button className='p-2 rounded-sm hover:bg-gray-600 transition duration-300' onClick={onClose}>
+            <XMarkIcon className='w-6 h-6 text-white hover:text-gray-300 transition duration-300 cursor-pointer' />
+          </button>
+        </div>
+
+        <h2 className='text-center text-white text-2xl font-semibold mb-4'>
+          Add Goal Type
+        </h2>
+
+        <CreateGoalTypeForm onClose={onClose} onCreate={onCreate} />
+      </div>
+    </BasePopup>
+  );
+};
+
+export default AddGoalTypePopup;

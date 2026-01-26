@@ -1,10 +1,10 @@
 import { apiClient } from '../index';
-import { IGoalType } from '@/utils/interfaces';
+import { ICreateGoalType, IGoalType, IPage } from '@/utils/interfaces';
 
 export const GoalTypeService = {
   async getAll() {
-    const { data } = await apiClient.get<IGoalType[]>('/api/goal-types');
-    return data;
+    const { data } = await apiClient.get<IPage<IGoalType>>('/api/goal-types');
+    return data.content;
   },
 
   async getById(id: string) {
@@ -12,7 +12,7 @@ export const GoalTypeService = {
     return data;
   },
 
-  async create(goalTypeData: Partial<IGoalType>) {
+  async create(goalTypeData: ICreateGoalType) {
     const { data } = await apiClient.post<IGoalType>('/api/goal-types', goalTypeData);
     return data;
   },

@@ -21,13 +21,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
 
   // Предотвращаем рендеринг на сервере, так как Keycloak требует window
   if (!mounted || !keycloak) {
-    return (
-      <div className="flex items-center justify-center min-h-screen bg-white dark:bg-zinc-950">
-        <div className="text-sm font-medium text-zinc-500 animate-pulse">
-          Инициализация системы...
-        </div>
-      </div>
-    );
+    return null;
   }
 
   return (
