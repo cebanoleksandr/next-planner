@@ -16,7 +16,6 @@ const AddGoalTypePopup: FC<IProps> = ({ isVisible, onClose }) => {
   const { createGoalType } = useCreateGoalTypeMutation();
 
   const onCreate = (goalTypeData: ICreateGoalType) => {
-    console.log('Creating goal type with data:', goalTypeData);
     createGoalType(goalTypeData);
     onClose();
   }

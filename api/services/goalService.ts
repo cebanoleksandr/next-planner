@@ -1,10 +1,11 @@
 import { apiClient } from '../index';
-import { IGoal, IPage } from '@/utils/interfaces';
+import { ICreateGoal, IGoal, IPage } from '@/utils/interfaces';
 
 export const GoalService = {
   async getAll(page = 0, size = 20) {
     const { data } = await apiClient.get<IPage<IGoal[]>>(`/api/goals?page=${page}&size=${size}`);
-    return data;
+    console.log('GoalService.getAll data:', data);
+    return data.content;
   },
 
   async getById(id: string) {
@@ -12,7 +13,7 @@ export const GoalService = {
     return data;
   },
 
-  async create(goalData: Omit<IGoal, 'id'>) {
+  async create(goalData: ICreateGoal) {
     const { data } = await apiClient.post<IGoal>('/api/goals', goalData);
     return data;
   },

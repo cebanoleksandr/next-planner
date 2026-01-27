@@ -1,18 +1,16 @@
 import { GoalTypeService } from "@/api/services/goalTypeServise";
 import { EQueries } from "@/react-query/types";
-import { setAlertAC } from "@/storage/alertSlice";
-import { useAppDispatch } from "@/storage/hooks";
+import { useKeycloak } from "@react-keycloak/web";
 import { useQuery } from "@tanstack/react-query";
 
 export const useGetGoalTypesQuery = () => {
-  const dispatch = useAppDispatch();
+  const { keycloak, initialized } = useKeycloak();
 
   const fetchInitial = async () => {
     try {
       const data = await GoalTypeService.getAll();
       return data;
     } catch (error: any) {
-      dispatch(setAlertAC({ text: 'Something went wrong. Cannot get data.', mode: 'error' }));
       throw error;
     }
   };
@@ -25,6 +23,7 @@ export const useGetGoalTypesQuery = () => {
   } = useQuery({
     queryKey: [EQueries.getGoalTypes],
     queryFn: fetchInitial,
+    enabled: initialized && !!keycloak.authenticated,
     staleTime: 5 * 60 * 1000,
   });
 

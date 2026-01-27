@@ -19,15 +19,7 @@ const MainLayout: FC<IProps> = ({ children }) => {
   const { keycloak, initialized } = useKeycloak();
   const { goalTypes } = useGetGoalTypesQuery();
 
-  const getUser = async (id: string) => {
-    // try {
-    //   const response = await getUserById(id);
-    //   console.log("Fetched user:", response);
-    //   dispatch(setUserAC(response));
-    // } catch (error) {
-    //   dispatch(setAlertAC({ text: 'Cannot fetch user', mode: 'error' }));
-    // }
-  }
+  const getUser = async (id: string) => {}
 
   useEffect(() => {
     if (initialized && !keycloak.authenticated) {
@@ -52,6 +44,10 @@ const MainLayout: FC<IProps> = ({ children }) => {
     { id: 'calendar', title: 'Calendar', icon: CalendarIcon, href: '/calendar' },
     { id: 'configuration', title: 'Configuration', icon: AdjustmentsHorizontalIcon, href: '/configuration' },
   ], [options]);
+
+  if (!initialized) {
+    return null;
+  }
 
   return (
     <div className='flex min-h-screen w-full bg-gray-100'>

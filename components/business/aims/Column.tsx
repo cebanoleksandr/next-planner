@@ -1,3 +1,4 @@
+import AddGoalPopup from "@/components/popups/AddGoalPopup";
 import AddGoalTypePopup from "@/components/popups/AddGoalTypePopup";
 import GoalCard from "@/components/UI/GoalCard";
 import { IGoal, IGoalType } from "@/utils/interfaces";
@@ -27,7 +28,7 @@ const Column: FC<IProps> = ({ title, data, type, ...props }) => {
       <div className="my-3 max-h-150 overflow-auto scrollbar-md">
         <div className="px-1">
           {data.map(goalCard => (
-            <GoalCard key={goalCard.id} data={goalCard} />
+            <GoalCard key={goalCard.id} data={goalCard} type={type} />
           ))}
         </div>
       </div>
@@ -40,7 +41,7 @@ const Column: FC<IProps> = ({ title, data, type, ...props }) => {
           onClick={() => setIsPopupOpen(true)}
         >
           <PlusIcon className="size-6 text-white" />
-          Add {type === 'goal' ? 'Card' : 'Goal Type'}
+          Add {type === 'goal' ? 'Goal' : 'Goal Type'}
         </button>
       </div>
 
@@ -51,9 +52,12 @@ const Column: FC<IProps> = ({ title, data, type, ...props }) => {
         />
       )}
 
-      {/* {type === 'goal' && (
-        <div>GOAL</div>
-      )} */}
+      {type === 'goal' && (
+        <AddGoalPopup
+          isVisible={isPopupOpen}
+          onClose={() => setIsPopupOpen(false)}
+        />
+      )}
     </div>
   );
 };

@@ -58,7 +58,7 @@ const ContextMenu: React.FC<IContextMenuProps> = ({ state, setState, children, i
           {state && (
             <motion.div
               ref={optionsRef}
-              className="absolute z-10 bg-gray-800 rounded-lg overflow-hidden shadow-xs w-64"
+              className="absolute z-10 bg-gray-800 rounded-lg overflow-hidden shadow-lg w-64"
               style={activatorRef.current ? getPositions(activatorRef.current) : {}}
               initial={{ opacity: 0, scale: 0.5, y: -50, x: 100 }}
               animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}

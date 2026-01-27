@@ -19,6 +19,8 @@ export const useDeleteGoalMutation = () => {
       queryClient.invalidateQueries({ 
         queryKey: [EQueries.getGoalById] 
       });
+
+      dispatch(setAlertAC({ text: 'Goal deleted successfully', mode: 'success' }));
     },
     onError: (error) => {
       dispatch(setAlertAC({ text: error.message, mode: 'error' }));

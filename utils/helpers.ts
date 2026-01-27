@@ -1,5 +1,5 @@
 import { TrophyIcon } from "@heroicons/react/24/solid";
-import { IGoal, IGoalType, ISidebarItem } from "./interfaces";
+import { IGoal, IGoalType, IOption, ISidebarItem } from "./interfaces";
 
 export const getSidebarOptions = (goalTypes: IGoalType[]): ISidebarItem[] => {
   return goalTypes.map(type => ({
@@ -18,4 +18,11 @@ export const isGoal = (obj: any): obj is IGoal => {
     Array.isArray(obj.labels) &&
     Array.isArray(obj.checkList)
   );
+}
+
+export const getGoalTypeOptions = (goalTypes: IGoalType[]): IOption[] => {
+  return goalTypes.map(type => ({
+    key: type.title,
+    value: type.id
+  }));
 }

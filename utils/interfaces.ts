@@ -60,6 +60,22 @@ export interface IGoal {
   customFieldAnswers?: ICustomFieldAnswer[];
 }
 
+export interface ICreateGoal {
+  title: string;
+  description?: string;
+  type: IGoalType;
+  status: GoalStatus;
+  customAnswers?: ICustomFieldAnswer[];
+}
+
+export enum GoalStatus {
+  NOT_STARTED = 'NOT_STARTED',
+  IN_PROGRESS = 'IN_PROGRESS',
+  COMPLETED = 'COMPLETED',
+  CANCELLED = 'CANCELLED',
+  ON_HOLD = 'ON_HOLD'
+}
+
 export interface ILabel {
   id: string;
   title: string;
