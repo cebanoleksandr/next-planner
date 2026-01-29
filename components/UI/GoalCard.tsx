@@ -10,6 +10,8 @@ import ContextMenu, { IContextMenuItem } from "./ContextMenu";
 import DeleteGoalTypePopup from "../popups/DeleteGoalTypePopup";
 import { useDeleteGoalTypeMutation } from "@/react-query/mutations/goalTypesMutations/useDeleteGoalTypeMutation";
 import { useDeleteGoalMutation } from "@/react-query/mutations/goalsMutations/useDeleteGoalMutation";
+import DeleteGoalPopup from "../popups/DeleteGoalPopup";
+import GoalTypePopup from "../popups/GoalTypePopup";
 
 interface IProps {
   data: IGoal | IGoalType;
@@ -23,13 +25,16 @@ const GoalCard: FC<IProps> = ({ data, type }) => {
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const [isDeleteGoalPopupVisible, setIsDeleteGoalPopupVisible] = useState(false);
   const [isDeleteTypePopupVisible, setIsDeleteTypePopupVisible] = useState(false);
+  const [isCardPopupVisible, setIsCardPopupVisible] = useState(false);
 
   const contextMenuGoalOptions: IContextMenuItem[] = [
     { text: 'Delete', onSelect: () => setIsDeleteGoalPopupVisible(true), color: 'red' },
+    // { text: 'Edit', onSelect: () => setIsCardPopupVisible(true) },
   ];
 
   const contextMenuTypeOptions: IContextMenuItem[] = [
     { text: 'Delete', onSelect: () => setIsDeleteTypePopupVisible(true), color: 'red' },
+    { text: 'Edit', onSelect: () => setIsCardPopupVisible(true) },
   ];
 
   const onOpenTypeOptions = (event: MouseEvent<HTMLButtonElement>) => {
@@ -47,8 +52,9 @@ const GoalCard: FC<IProps> = ({ data, type }) => {
 
   return (
     <div
-      className="relative p-2 rounded-xl mb-2 bg-gray-600 border border-gray-600 hover:border-white 
+      className="relative p-2 rounded-xl mb-2 bg-gray-600 border border-gray-600 hover:border-yellow-500 
       active:bg-gray-500 cursor-pointer transition duration-300"
+      onClick={() => setIsCardPopupVisible(true)}
     >
       {isGoal(data) && (
         <div className="flex items-center gap-1 mb-2">
@@ -121,8 +127,25 @@ const GoalCard: FC<IProps> = ({ data, type }) => {
         <DeleteGoalTypePopup
           isVisible={isDeleteTypePopupVisible}
           onClose={() => setIsDeleteTypePopupVisible(false)}
-          goal={data as IGoalType}
+          title={data.title}
           onDelete={onDelete}
+        />
+      )}
+
+      {type === 'goal' && (
+        <DeleteGoalPopup
+          isVisible={isDeleteGoalPopupVisible}
+          onClose={() => setIsDeleteGoalPopupVisible(false)}
+          title={data.title}
+          onDelete={onDelete}
+        />
+      )}
+
+      {type === 'type' && (
+        <GoalTypePopup
+          isVisible={isCardPopupVisible}
+          onClose={() => setIsCardPopupVisible(false)}
+          goalType={data as IGoalType}
         />
       )}
     </div>

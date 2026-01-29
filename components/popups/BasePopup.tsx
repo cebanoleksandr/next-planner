@@ -13,6 +13,11 @@ interface IProps {
 const BasePopup: FC<IProps> = ({ isVisible, onClose, children }) => {
   if (typeof document === 'undefined') return null; // SSR-safe
 
+  const handleClose = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onClose();
+  };
+
   return ReactDOM.createPortal(
     <AnimatePresence>
       {isVisible && (
@@ -21,7 +26,7 @@ const BasePopup: FC<IProps> = ({ isVisible, onClose, children }) => {
           <motion.div
             key="backdrop"
             className="fixed inset-0 bg-zinc-900/40 z-10"
-            onClick={onClose}
+            onClick={handleClose}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -36,6 +41,7 @@ const BasePopup: FC<IProps> = ({ isVisible, onClose, children }) => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.5, y: -100 }}
             transition={{ duration: 0.3 }}
+            onClick={(e) => e.stopPropagation()}
           >
             {children}
           </motion.div>

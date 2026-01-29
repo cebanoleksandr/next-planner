@@ -1,25 +1,26 @@
-import { CustomFieldType, ICreateCustomFieldDefinition, ICreateGoalType, IOption } from "@/utils/interfaces";
-import { FieldArray, Form, Formik, FormikHelpers } from "formik";
+import { CustomFieldType, ICustomFieldDefinition, IGoalType, IOption } from "@/utils/interfaces";
+import { FieldArray, Form, Formik, FormikHelpers, useFormikContext } from "formik";
+import { AnimatePresence, motion, Variants } from "framer-motion";
 import * as Yup from 'yup';
 import Button from "../UI/Button";
-import { FC } from "react";
 import FormikControl from "./FormControl";
-import { AnimatePresence, motion, Variants } from "framer-motion";
+import { FC, useCallback, useEffect } from "react";
 
 interface IValues {
-  title: string;
   customFields: Array<{
+    id?: string;
+    key?: string;
     label: string;
     type: CustomFieldType | '';
   }>;
 }
 
 interface IProps {
-  onClose: () => void;
-  onCreate: (goalTypeData: ICreateGoalType) => void;
+  customFields: ICustomFieldDefinition[];
+  onUpdate: (goalTypeData: Partial<IGoalType>) => void
 }
 
-const CreateGoalTypeForm: FC<IProps> = ({ onClose, onCreate }) => {
+const CustomFieldForm: FC<IProps> = ({ customFields, onUpdate }) => {
   const dropdownOptions: IOption[] = [
     { key: 'Select a custom field type', value: '' },
     { key: 'String', value: CustomFieldType.STRING },
@@ -27,6 +28,24 @@ const CreateGoalTypeForm: FC<IProps> = ({ onClose, onCreate }) => {
     { key: 'Date', value: CustomFieldType.DATE },
     { key: 'Boolean', value: CustomFieldType.BOOLEAN },
   ];
+
+  const initialValues: IValues = {
+    customFields: customFields.length > 0 ? customFields.map(field => ({
+      id: field.id,
+      key: field.key,
+      label: field.label,
+      type: field.type,
+    })) : [],
+  }
+
+  const validationSchema = Yup.object({
+    customFields: Yup.array().of(
+      Yup.object({
+        label: Yup.string().required('Label is required'),
+        type: Yup.string().required('Type is required'),
+      })
+    )
+  });
 
   const fieldVariants: Variants = {
     hidden: { opacity: 0, x: -20, height: 0, marginBottom: 0 },
@@ -46,49 +65,28 @@ const CreateGoalTypeForm: FC<IProps> = ({ onClose, onCreate }) => {
     }
   };
 
-  const initialValues: IValues = {
-    title: '',
-    customFields: []
-  }
+  const onSubmit = (values: IValues) => {
+    const filteredFields = values.customFields.filter(f => f.label && f.type);
 
-  const validationSchema = Yup.object({
-    title: Yup.string().required('Title is required'),
-    customFields: Yup.array().of(
-      Yup.object({
-        label: Yup.string().required('Label is required'),
-        type: Yup.string().required('Type is required'),
-      })
-    )
-  });
-
-  const onSubmit = (values: IValues, onSubmitProps: FormikHelpers<IValues>) => {
-    const goalTypeData: ICreateGoalType = {
-      title: values.title,
-      customFields: values.customFields as ICreateCustomFieldDefinition[],
+    const goalTypeData: Partial<IGoalType> = {
+      customFields: filteredFields as ICustomFieldDefinition[],
     };
-    onCreate(goalTypeData);
-    onSubmitProps.resetForm();
-  }
+    
+    onUpdate(goalTypeData);
+  };
 
   return (
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      enableReinitialize={true}
     >
       {(formik) => (
         <div className='p-2'>
-          <Form className="p-5 overflow-y-auto max-h-150 scrollbar-md">
-            <FormikControl
-              control='input'
-              label="Title"
-              placeholder='Enter Goal Type title'
-              type='text'
-              name="title"
-              isError={!!formik.errors.title}
-              isTouched={!!formik.touched.title}
-            />
+          <AutoSave debounceMs={500} />
 
+          <Form className="p-5 overflow-y-auto max-h-150 scrollbar-md">
             <div className="mb-6 relative">
               <FieldArray name='customFields'>
                 {({ push, remove, form }) => {
@@ -186,21 +184,34 @@ const CreateGoalTypeForm: FC<IProps> = ({ onClose, onCreate }) => {
                 }}
               </FieldArray>
             </div>
-
-            <div className='flex justify-end items-center gap-2'>
-              <Button type="button" onClick={onClose} mode="white">
-                Cancel
-              </Button>
-
-              <Button mode="primary">
-                Create
-              </Button>
-            </div>
           </Form>
         </div>
       )}
     </Formik>
-  )
-}
+  );
+};
 
-export default CreateGoalTypeForm;
+export default CustomFieldForm;
+
+const AutoSave = ({ debounceMs = 500 }) => {
+  const { values, submitForm, isValid, dirty } = useFormikContext<any>();
+
+  // Створюємо функцію для перевірки та відправки
+  const debouncedSubmit = useCallback(() => {
+    if (dirty && isValid) {
+      submitForm();
+    }
+  }, [dirty, isValid, submitForm]);
+
+  useEffect(() => {
+    // Встановлюємо таймер
+    const timer = setTimeout(() => {
+      debouncedSubmit();
+    }, debounceMs);
+
+    // Очищуємо таймер, якщо значення змінилися знову до закінчення затримки
+    return () => clearTimeout(timer);
+  }, [values, debouncedSubmit, debounceMs]);
+
+  return null;
+};

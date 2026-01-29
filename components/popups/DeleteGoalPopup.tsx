@@ -10,15 +10,15 @@ interface IProps {
   title: string;
 }
 
-const DeleteGoalTypePopup: FC<IProps> = ({ isVisible, onClose, title, onDelete }) => {
-  const handleDelete = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Зупиняємо клік, щоб не відкрилася картка
-    onDelete();
+const DeleteGoalPopup: FC<IProps> = ({ isVisible, onClose, title, onDelete }) => {
+  const handleCancel = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Зупиняємо клік тут теж
     onClose();
   };
 
-  const handleCancel = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Зупиняємо клік тут теж
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Зупиняємо клік, щоб не відкрилася картка
+    onDelete();
     onClose();
   };
 
@@ -36,7 +36,7 @@ const DeleteGoalTypePopup: FC<IProps> = ({ isVisible, onClose, title, onDelete }
         </h2>
 
         <div className='mb-10'>
-          <p className="text-gray-400 font-semibold text-center">Are you sure you want to delete this goal-type?</p>
+          <p className="text-gray-400 font-semibold text-center">Are you sure you want to delete this goal?</p>
         </div>
 
         <div className='flex justify-end items-center gap-2'>
@@ -53,4 +53,4 @@ const DeleteGoalTypePopup: FC<IProps> = ({ isVisible, onClose, title, onDelete }
   );
 };
 
-export default DeleteGoalTypePopup;
+export default DeleteGoalPopup;

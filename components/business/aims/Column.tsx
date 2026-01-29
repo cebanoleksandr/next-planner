@@ -1,28 +1,52 @@
 import AddGoalPopup from "@/components/popups/AddGoalPopup";
 import AddGoalTypePopup from "@/components/popups/AddGoalTypePopup";
+import DeleteGoalTypePopup from "@/components/popups/DeleteGoalTypePopup";
+import ContextMenu, { IContextMenuItem } from "@/components/UI/ContextMenu";
 import GoalCard from "@/components/UI/GoalCard";
+import { useDeleteGoalTypeMutation } from "@/react-query/mutations/goalTypesMutations/useDeleteGoalTypeMutation";
 import { IGoal, IGoalType } from "@/utils/interfaces";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/react/24/solid";
 import cn from "classnames";
-import { FC, HTMLAttributes, useState } from "react";
+import { FC, HTMLAttributes, useMemo, useState } from "react";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
   data: IGoal[] | IGoalType[];
   type: 'goal' | 'type';
+  onDelete?: () => void;
 }
 
-const Column: FC<IProps> = ({ title, data, type, ...props }) => {
+const Column: FC<IProps> = ({ title, data, type, onDelete = () => {}, ...props }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
+  const [isDeleteTypePopupVisible, setIsDeleteTypePopupVisible] = useState(false);
+
+  const handleDelete = () => {
+    onDelete();
+  };
+
+  const contextMenuTypeOptions: IContextMenuItem[] = useMemo(() => [
+    { text: `Add ${type === 'goal' ? 'Goal' : 'Goal Type'}`, onSelect: () => setIsPopupOpen(true), },
+    type === 'goal' ? { text: 'Delete', onSelect: () => setIsDeleteTypePopupVisible(true), color: 'red' } : null,
+  ].filter(Boolean) as IContextMenuItem[], [type]);
 
   return (
     <div className={cn("w-lg bg-gray-800 rounded-xl p-4 text-white")} {...props}>
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-bold">{title}</h2>
 
-        <button className="p-2 hover:bg-gray-700 active:bg-gray-600 rounded-lg transition duration-300 cursor-pointer">
-          <EllipsisHorizontalIcon className="size-6 text-white" />
-        </button>
+        <ContextMenu
+          state={isContextMenuOpen}
+          setState={setIsContextMenuOpen}
+          items={contextMenuTypeOptions}
+        >
+          <button 
+            className="p-2 hover:bg-gray-700 active:bg-gray-600 rounded-lg transition duration-300 cursor-pointer"
+            onClick={() => setIsContextMenuOpen(true)}
+          >
+            <EllipsisHorizontalIcon className="size-6 text-white" />
+          </button>
+        </ContextMenu>
       </div>
 
       <div className="my-3 max-h-150 overflow-auto scrollbar-md">
@@ -58,6 +82,13 @@ const Column: FC<IProps> = ({ title, data, type, ...props }) => {
           onClose={() => setIsPopupOpen(false)}
         />
       )}
+
+      <DeleteGoalTypePopup
+        isVisible={isDeleteTypePopupVisible}
+        onClose={() => setIsDeleteTypePopupVisible(false)}
+        title={title}
+        onDelete={handleDelete}
+      />
     </div>
   );
 };

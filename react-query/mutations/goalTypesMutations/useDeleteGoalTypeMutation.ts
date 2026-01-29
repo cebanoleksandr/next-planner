@@ -20,7 +20,7 @@ export const useDeleteGoalTypeMutation = () => {
         queryKey: [EQueries.getGoalTypeById] 
       });
 
-      dispatch(setAlertAC({ text: 'Goal type deleted successfully', mode: 'success' }));
+      dispatch(setAlertAC({ text: 'Goal type deleted successfully', mode: 'info' }));
     },
     onError: (error) => {
       dispatch(setAlertAC({ text: error.message, mode: 'error' }));

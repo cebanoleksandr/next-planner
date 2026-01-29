@@ -10,9 +10,9 @@ const ConfigurationPage = () => {
     <div>
       <div className="flex flex-col md:flex-row gap-4 p-6">
         <Column 
-          title="Goal Types" 
+          title="Goal Types"
           data={goalTypes} 
-          type="type" 
+          type="type"
         />
 
         <div className="flex-1">CHART</div>

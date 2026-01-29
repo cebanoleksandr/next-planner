@@ -5,7 +5,7 @@ import { EQueries } from '@/react-query/types';
 import { useAppDispatch } from '@/storage/hooks';
 import { setAlertAC } from '@/storage/alertSlice';
 
-interface UpdateGoalTypeParams {
+export interface UpdateGoalTypeParams {
   id: string;
   data: Partial<IGoalType>;
 }
