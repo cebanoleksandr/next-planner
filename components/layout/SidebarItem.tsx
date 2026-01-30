@@ -11,7 +11,9 @@ interface IProps {
 
 const SidebarItem: FC<IProps> = ({ item }) => {
   const pathname = usePathname();
-  const isActive = pathname === item.href;
+  const isActive = '/' + pathname.split('/')[2] === item.href;
+
+  console.log('SidebarItem Render:', { pathname: '/' + pathname.split('/')[2], itemHref: item.href });
 
   return (
     <li className="relative mb-0.5 flex items-center justify-between rounded-xl cursor-pointer overflow-hidden">

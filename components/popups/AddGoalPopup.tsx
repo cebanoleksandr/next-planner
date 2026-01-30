@@ -4,7 +4,7 @@ import { FC } from "react";
 import BasePopup from "./BasePopup";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useCreateGoalMutation } from "@/react-query/mutations/goalsMutations/useCreateGoalMutation";
-import { ICreateGoal, IGoal } from "@/utils/interfaces";
+import { ICreateGoal } from "@/utils/interfaces";
 import CreateGoalForm from "../forms/CreateGoalForm";
 
 interface IProps {

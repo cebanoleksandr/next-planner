@@ -40,7 +40,7 @@ const MainLayout: FC<IProps> = ({ children }) => {
 
   const sidebarItems: ISidebarItem[] = useMemo(() => [
     ...options,
-    { id: 'dashboard', title: 'Dashboard', icon: Squares2X2Icon, href: '/' },
+    { id: 'dashboard', title: 'Dashboard', icon: Squares2X2Icon, href: '/dashboard' },
     { id: 'calendar', title: 'Calendar', icon: CalendarIcon, href: '/calendar' },
     { id: 'configuration', title: 'Configuration', icon: AdjustmentsHorizontalIcon, href: '/configuration' },
   ], [options]);

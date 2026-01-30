@@ -1,7 +1,21 @@
 import type { NextConfig } from "next";
+import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/dashboard',
+        permanent: true, // 308 redirect (кешується браузером)
+      },
+    ];
+  },
+  reactStrictMode: false,
 };
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin(
+  './i18n/request.ts' // Шлях до вашого request config
+);
+ 
+export default withNextIntl(nextConfig);

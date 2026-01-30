@@ -10,11 +10,7 @@ import LogoutPopup from '../popups/LogoutPopup';
 import { ISidebarItem } from '@/utils/interfaces';
 import ContextMenu, { IContextMenuItem } from '../UI/ContextMenu';
 import { useRouter } from 'next/navigation';
-import keycloak from '@/keyckloak';
-// import BaseButton from '../UI/BaseButton';
-// import LogoutPopup from '../popups/LogoutPopup';
-// import MobileMenu from './MobileMenu';
-// import Input from '../UI/Input';
+import { useKeycloak } from '@react-keycloak/web';
 
 interface IProps {
   sidebarItems: ISidebarItem[];
@@ -22,6 +18,7 @@ interface IProps {
 
 const Header: FC<IProps> = ({ sidebarItems }) => {
   const router = useRouter();
+  const { keycloak } = useKeycloak();
 
   const [isLogoutPopupVisible, setIsLogoutPopupVisible] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

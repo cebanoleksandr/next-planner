@@ -1,0 +1,77 @@
+{
+  "Sidebar": {
+    "dashboard": "Dashboard",
+    "calendar": "Calendar",
+    "configuration": "Configuration"
+  },
+  "SearchBar": {
+    "placeholder": "Search..."
+  },
+  "Column": {
+    "button_type": "Add Goal Type",
+    "button_goal": "Add Goal",
+    "empty_goal": "No goals yet. Click the button below to add your first goal!",
+    "empty_type": "No goal types yet. Click the button below to add your first goal type!"
+  },
+  "Popups": {
+    "close": "Close",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "delete_goal": {
+      "title": "Are you sure you want to delete this goal?",
+      "confirm_button": "Delete",
+      "cancel_button": "Cancel"
+    },
+    "delete_goal_type": {
+      "title": "Are you sure you want to delete this goal type?",
+      "confirm_button": "Delete",
+      "cancel_button": "Cancel"
+    },
+    "add_goal": {
+      "title": "Add New Goal"
+    },
+    "add_goal_type": {
+      "title": "Add New Goal Type"
+    },
+    "logout": {
+      "title": "Are you sure you want to log out?",
+      "confirm_button": "Log Out",
+      "cancel_button": "Cancel",
+      "logout": "Log Out"
+    }
+  },
+  "Context_Menu": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "logout": "Log Out",
+    "settings": "Settings",
+    "profile": "Profile",
+    "add_goal": "Add Goal",
+    "add_goal_type": "Add Goal Type"
+  },
+  "Language_Switcher": {
+    "select_language": "Select Language",
+    "english": "English",
+    "spanish": "Spanish",
+    "french": "French",
+    "german": "German",
+    "chinese": "Chinese"  
+  },
+  "Forms": {
+    "goal_name": "Goal Name",
+    "goal_type": "Goal Type",
+    "select_goal_type": "Select Goal Type",
+    "description": "Description",
+    "due_date": "Due Date",
+    "submit": "Submit",
+    "update": "Update",
+    "add_custom_field": "Add Custom Field",
+    "custom_field_name": "Custom Field Name",
+    "custom_field_value": "Custom Field Value",
+    "enter_goal_type_name": "Enter goal type name",
+    "enter_goal_name": "Enter goal name",
+    "enter_description": "Enter description",
+    "custom_field_empty": "No custom fields added yet"
+  }
+}
