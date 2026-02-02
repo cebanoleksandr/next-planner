@@ -7,6 +7,7 @@ import { useDeleteGoalTypeMutation } from "@/react-query/mutations/goalTypesMuta
 import { IGoal, IGoalType } from "@/utils/interfaces";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/react/24/solid";
 import cn from "classnames";
+import { useTranslations } from "next-intl";
 import { FC, HTMLAttributes, useMemo, useState } from "react";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
@@ -17,6 +18,8 @@ interface IProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const Column: FC<IProps> = ({ title, data, type, onDelete = () => {}, ...props }) => {
+  const t = useTranslations('Column');
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const [isDeleteTypePopupVisible, setIsDeleteTypePopupVisible] = useState(false);
@@ -26,8 +29,8 @@ const Column: FC<IProps> = ({ title, data, type, onDelete = () => {}, ...props }
   };
 
   const contextMenuTypeOptions: IContextMenuItem[] = useMemo(() => [
-    { text: `Add ${type === 'goal' ? 'Goal' : 'Goal Type'}`, onSelect: () => setIsPopupOpen(true), },
-    type === 'goal' ? { text: 'Delete', onSelect: () => setIsDeleteTypePopupVisible(true), color: 'red' } : null,
+    { text: `${type === 'goal' ? t('button_goal') : t('button_type')}`, onSelect: () => setIsPopupOpen(true), },
+    type === 'goal' ? { text: t('delete'), onSelect: () => setIsDeleteTypePopupVisible(true), color: 'red' } : null,
   ].filter(Boolean) as IContextMenuItem[], [type]);
 
   return (
@@ -65,7 +68,7 @@ const Column: FC<IProps> = ({ title, data, type, onDelete = () => {}, ...props }
           onClick={() => setIsPopupOpen(true)}
         >
           <PlusIcon className="size-6 text-white" />
-          Add {type === 'goal' ? 'Goal' : 'Goal Type'}
+          {type === 'goal' ? t('button_goal') : t('button_type')}
         </button>
       </div>
 

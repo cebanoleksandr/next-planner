@@ -70,13 +70,9 @@ const ContextMenu: React.FC<IContextMenuProps> = ({ state, setState, children, i
                   key={item.text}
                   style={{ color: item.color ?? '#fde047' }}
                   className="px-4 py-2 cursor-pointer hover:bg-gray-600 active:bg-gray-500 transition duration-300"
-                  // onClick={() => {
-                  //   item.onSelect(item);
-                  //   setState(false);
-                  // }}
                   onClick={(e) => {
-                    e.stopPropagation(); // ВАЖЛИВО: зупиняємо спливання події
-                    item.onSelect(e as any, item); // Передаємо і подію, і сам item
+                    e.stopPropagation();
+                    item.onSelect(e as any, item);
                     setState(false);
                   }}
                 >

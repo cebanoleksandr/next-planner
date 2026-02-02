@@ -6,6 +6,7 @@ import BasePopup from "./BasePopup";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useUpdateGoalTypeMutation } from "@/react-query/mutations/goalTypesMutations/useUpdateGoalTypeMutation";
 import CustomFieldForm from "../forms/CustomFieldForm";
+import { useTranslations } from "next-intl";
 
 interface IProps {
   isVisible: boolean;
@@ -14,6 +15,7 @@ interface IProps {
 }
 
 const GoalTypePopup: FC<IProps> = ({ isVisible, onClose, goalType }) => {
+  const t = useTranslations('Popups');
   const { updateGoalType } = useUpdateGoalTypeMutation();
 
   const [title, setTitle] = useState(goalType.title);
@@ -47,7 +49,7 @@ const GoalTypePopup: FC<IProps> = ({ isVisible, onClose, goalType }) => {
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder="Goal Type Title"
+            placeholder={t('add_goal_type')}
             className="w-full bg-gray-800 text-white text-2xl font-semibold border-0 focus:ring-0"
             onKeyDown={onEnterPress}
             onBlur={onBlur}

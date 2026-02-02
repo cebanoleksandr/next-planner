@@ -10,12 +10,14 @@ import { useKeycloak } from "@react-keycloak/web";
 import { apiClient } from "@/api";
 import { useGetGoalTypesQuery } from "@/react-query/queries/goalTypesQueries/useGetGoalTypesQuery";
 import { getSidebarOptions } from "@/utils/helpers";
+import { useTranslations } from "next-intl";
 
 interface IProps {
   children: ReactNode;
 }
 
 const MainLayout: FC<IProps> = ({ children }) => {
+  const t = useTranslations('Sidebar');
   const { keycloak, initialized } = useKeycloak();
   const { goalTypes } = useGetGoalTypesQuery();
 
@@ -40,9 +42,9 @@ const MainLayout: FC<IProps> = ({ children }) => {
 
   const sidebarItems: ISidebarItem[] = useMemo(() => [
     ...options,
-    { id: 'dashboard', title: 'Dashboard', icon: Squares2X2Icon, href: '/dashboard' },
-    { id: 'calendar', title: 'Calendar', icon: CalendarIcon, href: '/calendar' },
-    { id: 'configuration', title: 'Configuration', icon: AdjustmentsHorizontalIcon, href: '/configuration' },
+    { id: 'dashboard', title: t('dashboard'), icon: Squares2X2Icon, href: '/dashboard' },
+    { id: 'calendar', title: t('calendar'), icon: CalendarIcon, href: '/calendar' },
+    { id: 'configuration', title: t('configuration'), icon: AdjustmentsHorizontalIcon, href: '/configuration' },
   ], [options]);
 
   if (!initialized) {

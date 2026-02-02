@@ -1,7 +1,114 @@
 {
-  "Goals": {
-    "title": "Мої Цілі",
-    "add_button": "Додати нову ціль",
-    "placeholder": "Чого ви хочете досягти?"
+  "Sidebar": {
+    "dashboard": "Панель",
+    "calendar": "Календар",
+    "configuration": "Конфігурація"
+  },
+  "AimPage": {
+    "invalid_goal_id": "Некоректний ID цілі",
+    "go_to_dashboard": "Перейти на панель",
+    "loading": "Завантаження...",
+    "goal_not_found": "Ціль не знайдена (404)"
+  },
+  "SearchBar": {
+    "placeholder": "Пошук..."
+  },
+  "Column": {
+    "button_type": "Додати тип цілі",
+    "button_goal": "Додати ціль",
+    "empty_goal": "Поки що немає цілей. Натисніть кнопку нижче, щоб додати першу ціль!",
+    "empty_type": "Поки що немає типів цілей. Натисніть кнопку нижче, щоб додати перший тип цілі!",
+    "delete": "Видалити"
+  },
+  "Popups": {
+    "close": "Закрити",
+    "delete": "Видалити",
+    "cancel": "Скасувати",
+    "confirm": "Підтвердити",
+    "delete_goal": {
+      "title": "Ви впевнені, що хочете видалити цю ціль?",
+      "confirm_button": "Видалити",
+      "cancel_button": "Скасувати"
+    },
+    "delete_goal_type": {
+      "title": "Ви впевнені, що хочете видалити цей тип цілі?",
+      "confirm_button": "Видалити",
+      "cancel_button": "Скасувати"
+    },
+    "add_goal": {
+      "title": "Додати нову ціль"
+    },
+    "add_goal_type": {
+      "title": "Додати новий тип цілі"
+    },
+    "logout": {
+      "title": "Ви впевнені, що хочете вийти?",
+      "confirm_button": "Вийти",
+      "cancel_button": "Скасувати",
+      "logout": "Вийти"
+    }
+  },
+  "Context_Menu": {
+    "edit": "Редагувати",
+    "delete": "Видалити",
+    "logout": "Вийти",
+    "settings": "Налаштування",
+    "profile": "Профіль",
+    "add_goal": "Додати ціль",
+    "add_goal_type": "Додати тип цілі"
+  },
+  "Language_Switcher": {
+    "select_language": "Вибрати мову",
+    "english": "Англійська",
+    "spanish": "Іспанська",
+    "french": "Французька",
+    "german": "Німецька",
+    "chinese": "Китайська"
+  },
+  "Forms": {
+    "goal_name": "Назва цілі",
+    "goal_type": "Тип цілі",
+    "select_goal_type": "Вибрати тип цілі",
+    "description": "Опис",
+    "due_date": "Термін виконання",
+    "submit": "Надіслати",
+    "update": "Оновити",
+    "add_custom_field": "Додати користувацьке поле",
+    "custom_field_name": "Назва користувацького поля",
+    "custom_field_value": "Значення користувацького поля",
+    "enter_goal_type_name": "Введіть назву типу цілі",
+    "enter_goal_name": "Введіть назву цілі",
+    "enter_description": "Введіть опис",
+    "custom_field_empty": "Користувацькі поля ще не додані",
+    "select_custom_field": "Вибрати користувацьке поле",
+    "title_required": "Назва є обов'язковою",
+    "type_required": "Тип є обов'язковим",
+    "select_valid_goal_type": "Будь ласка, виберіть дійсний тип цілі",
+    "due_date_required": "Термін виконання є обов'язковим",
+    "invalid_due_date": "Недопустимий термін виконання",
+    "title": "Назва",
+    "create": "Створити",
+    "enter_goal_description": "Введіть опис цілі",
+    "type": "Тип",
+    "custom_field_required": "Назва користувацького поля є обов'язковою",
+    "value_required": "Значення є обов'язковим",
+    "field_label_required": "Мітка поля є обов'язковою",
+    "no_custom_fields_edded": "Користувацькі поля ще не додані",
+    "field_label": "Мітка поля",
+    "field_type": "Тип поля",
+    "cancel": "Скасувати",
+    "select_date": "Виберіть дату"
+  },
+  "Header": {
+    "logout": "Вийти",
+    "settings": "Налаштування",
+    "profile": "Профіль"
+  },
+  "GoalCard": {
+    "edit": "Редагувати",
+    "delete": "Видалити"
+  },
+  "LanguageSwitcher": {
+    "label": "Змiнити мову"
   }
 }

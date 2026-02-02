@@ -1,7 +1,113 @@
 {
-  "Goals": {
-    "title": "Мої Цілі",
-    "add_button": "Додати нову ціль",
-    "placeholder": "Чого ви хочете досягти?"
+  "Sidebar": {
+    "dashboard": "Panel",
+    "calendar": "Kalendarz",
+    "configuration": "Konfiguracja"
+  },
+  "AimPage": {
+    "invalid_goal_id": "ID celu jest nieprawidłowy",
+    "go_to_dashboard": "Przejdź do panelu",
+    "loading": "Ładowanie...",
+    "goal_not_found": "Cel nie znaleziony (404)"
+  },
+  "SearchBar": {
+    "placeholder": "Szukaj..."
+  },
+  "Column": {
+    "button_type": "Dodaj typ celu",
+    "button_goal": "Dodaj cel",
+    "empty_goal": "Brak celów. Kliknij przycisk poniżej, aby dodać swój pierwszy cel!",
+    "empty_type": "Brak typów celów. Kliknij przycisk poniżej, aby dodać swój pierwszy typ celu!",
+    "delete": "Usuń"
+  },
+  "Popups": {
+    "close": "Zamknij",
+    "delete": "Usuń",
+    "cancel": "Anuluj",
+    "confirm": "Potwierdź",
+    "delete_goal": {
+      "title": "Czy na pewno chcesz usunąć ten cel?",
+      "confirm_button": "Usuń",
+      "cancel_button": "Anuluj"
+    },
+    "delete_goal_type": {
+      "title": "Czy na pewno chcesz usunąć ten typ celu?",
+      "confirm_button": "Usuń",
+      "cancel_button": "Anuluj"
+    },
+    "add_goal": {
+      "title": "Dodaj nowy cel"
+    },
+    "add_goal_type": {
+      "title": "Dodaj nowy typ celu"
+    },
+    "logout": {
+      "title": "Czy na pewno chcesz się wylogować?",
+      "confirm_button": "Wyloguj się",
+      "cancel_button": "Anuluj",
+      "logout": "Wyloguj się"
+    }
+  },
+  "Context_Menu": {
+    "edit": "Edytuj",
+    "delete": "Usuń",
+    "logout": "Wyloguj się",
+    "settings": "Ustawienia",
+    "profile": "Profil",
+    "add_goal": "Dodaj cel",
+    "add_goal_type": "Dodaj typ celu"
+  },
+  "Language_Switcher": {
+    "select_language": "Wybierz język",
+    "english": "Angielski",
+    "spanish": "Hiszpański",
+    "french": "Francuski",
+    "german": "Niemiecki",
+    "chinese": "Chiński"
+  },
+  "Forms": {
+    "goal_name": "Nazwa celu",
+    "goal_type": "Typ celu",
+    "select_goal_type": "Wybierz typ celu",
+    "description": "Opis",
+    "due_date": "Termin",
+    "submit": "Zatwierdź",
+    "update": "Aktualizuj",
+    "add_custom_field": "Dodaj pole niestandardowe",
+    "custom_field_name": "Nazwa pola niestandardowego",
+    "custom_field_value": "Wartość pola niestandardowego",
+    "enter_goal_type_name": "Wpisz nazwę typu celu",
+    "enter_goal_name": "Wpisz nazwę celu",
+    "enter_description": "Wpisz opis",
+    "custom_field_empty": "Nie dodano jeszcze żadnych pól niestandardowych",
+    "select_custom_field": "Wybierz pole niestandardowe",
+    "title_required": "Tytuł jest wymagany",
+    "type_required": "Typ jest wymagany",
+    "select_valid_goal_type": "Wybierz prawidłowy typ celu",
+    "due_date_required": "Termin jest wymagany",
+    "invalid_due_date": "Nieprawidłowy termin",
+    "title": "Tytuł",
+    "create": "Utwórz",
+    "enter_goal_description": "Wpisz opis celu",
+    "type": "Typ",
+    "custom_field_required": "Nazwa pola niestandardowego jest wymagana",
+    "value_required": "Wartość jest wymagana",
+    "field_label_required": "Etykieta pola jest wymagana",
+    "no_custom_fields_edded": "Nie dodano jeszcze żadnych pól niestandardowych",
+    "field_label": "Etykieta pola",
+    "field_type": "Typ pola",
+    "select_date": "Wybierz datę"
+  },
+  "Header": {
+    "logout": "Wyloguj się",
+    "settings": "Ustawienia",
+    "profile": "Profil"
+  },
+  "GoalCard": {
+    "edit": "Edytuj",
+    "delete": "Usuń"
+  },
+  "LanguageSwitcher": {
+    "label": "Zmień język"
   }
 }

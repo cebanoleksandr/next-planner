@@ -1,7 +1,114 @@
 {
-  "Goals": {
-    "title": "Мої Цілі",
-    "add_button": "Додати нову ціль",
-    "placeholder": "Чого ви хочете досягти?"
+  "Sidebar": {
+    "dashboard": "Panel",
+    "calendar": "Calendario",
+    "configuration": "Configuración"
+  },
+  "AimPage": {
+    "invalid_goal_id": "ID de objetivo no válido",
+    "go_to_dashboard": "Ir al panel",
+    "loading": "Cargando...",
+    "goal_not_found": "Objetivo no encontrado (404)"
+  },
+  "SearchBar": {
+    "placeholder": "Buscar..."
+  },
+  "Column": {
+    "button_type": "Agregar tipo de objetivo",
+    "button_goal": "Agregar objetivo",
+    "empty_goal": "Aún no hay objetivos. ¡Haz clic en el botón de abajo para agregar tu primer objetivo!",
+    "empty_type": "Aún no hay tipos de objetivo. ¡Haz clic en el botón de abajo para agregar tu primer tipo de objetivo!",
+    "delete": "Eliminar"
+  },
+  "Popups": {
+    "close": "Cerrar",
+    "delete": "Eliminar",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "delete_goal": {
+      "title": "¿Estás seguro de que deseas eliminar este objetivo?",
+      "confirm_button": "Eliminar",
+      "cancel_button": "Cancelar"
+    },
+    "delete_goal_type": {
+      "title": "¿Estás seguro de que deseas eliminar este tipo de objetivo?",
+      "confirm_button": "Eliminar",
+      "cancel_button": "Cancelar"
+    },
+    "add_goal": {
+      "title": "Agregar nuevo objetivo"
+    },
+    "add_goal_type": {
+      "title": "Agregar nuevo tipo de objetivo"
+    },
+    "logout": {
+      "title": "¿Estás seguro de que deseas cerrar sesión?",
+      "confirm_button": "Cerrar sesión",
+      "cancel_button": "Cancelar",
+      "logout": "Cerrar sesión"
+    }
+  },
+  "Context_Menu": {
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "logout": "Cerrar sesión",
+    "settings": "Configuración",
+    "profile": "Perfil",
+    "add_goal": "Agregar objetivo",
+    "add_goal_type": "Agregar tipo de objetivo"
+  },
+  "Language_Switcher": {
+    "select_language": "Seleccionar idioma",
+    "english": "Inglés",
+    "spanish": "Español",
+    "french": "Francés",
+    "german": "Alemán",
+    "chinese": "Chino"
+  },
+  "Forms": {
+    "goal_name": "Nombre del objetivo",
+    "goal_type": "Tipo de objetivo",
+    "select_goal_type": "Seleccionar tipo de objetivo",
+    "description": "Descripción",
+    "due_date": "Fecha límite",
+    "submit": "Enviar",
+    "update": "Actualizar",
+    "add_custom_field": "Agregar campo personalizado",
+    "custom_field_name": "Nombre del campo personalizado",
+    "custom_field_value": "Valor del campo personalizado",
+    "enter_goal_type_name": "Ingresa el nombre del tipo de objetivo",
+    "enter_goal_name": "Ingresa el nombre del objetivo",
+    "enter_description": "Ingresa la descripción",
+    "custom_field_empty": "Aún no se han agregado campos personalizados",
+    "select_custom_field": "Seleccionar campo personalizado",
+    "title_required": "Se requiere título",
+    "type_required": "Se requiere tipo",
+    "select_valid_goal_type": "Seleccione un tipo de objetivo válido",
+    "due_date_required": "Se requiere fecha de vencimiento",
+    "invalid_due_date": "Fecha de vencimiento no válida",
+    "title": "Título",
+    "create": "Crear",
+    "enter_goal_description": "Ingresa la descripción del objetivo",
+    "type": "Tipo",
+    "custom_field_required": "Se requiere nombre del campo personalizado",
+    "value_required": "Se requiere valor",
+    "field_label_required": "Se requiere etiqueta del campo",
+    "no_custom_fields_edded": "Aún no se han agregado campos personalizados",
+    "field_label": "Etiqueta del campo",
+    "field_type": "Tipo de campo",
+    "cancel": "Cancelar",
+    "select_date": "Selecciona una fecha"
+  },
+  "Header": {
+    "logout": "Cerrar sesión",
+    "settings": "Configuración",
+    "profile": "Perfil"
+  },
+  "GoalCard": {
+    "edit": "Editar",
+    "delete": "Eliminar"
+  },
+  "LanguageSwitcher": {
+    "label": "Cambiar idioma"
   }
 }

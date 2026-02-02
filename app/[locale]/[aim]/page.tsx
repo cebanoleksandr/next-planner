@@ -2,7 +2,9 @@
 
 import Column from "@/components/business/aims/Column";
 import { useDeleteGoalTypeMutation } from "@/react-query/mutations/goalTypesMutations/useDeleteGoalTypeMutation";
+import { useGetGoalsQuery } from "@/react-query/queries/goalsQueries/useGetGoalsQuery";
 import { useGetGoalTypeById } from "@/react-query/queries/goalTypesQueries/useGetGoalTypeByIdQuery";
+import { useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
 
 const isValidUUID = (id: string) => {
@@ -13,12 +15,13 @@ const isValidUUID = (id: string) => {
 const AimPage = () => {
   const router = useRouter();
   const params = useParams();
+  const t = useTranslations('AimPage');
   
   const rawId = (params?.aim || params?.id) as string;
   const isIdValid = isValidUUID(rawId);
   
   const { goalType, isLoading, isError } = useGetGoalTypeById(isIdValid ? rawId : undefined);
-  
+  const { goals } = useGetGoalsQuery();
   const { deleteGoalType } = useDeleteGoalTypeMutation();
 
   const onDelete = () => {
@@ -31,27 +34,27 @@ const AimPage = () => {
   if (!isIdValid) {
     return (
       <div className="p-6">
-        <h2 className="text-xl text-red-500">Некоректний ID цілі</h2>
+        <h2 className="text-xl text-red-500">{t('invalid_goal_id')}</h2>
         <button onClick={() => router.push('/dashboard')} className="btn-primary mt-4">
-          На головну
+          {t('go_to_dashboard')}
         </button>
       </div>
     );
   }
 
   if (isLoading) {
-    return <div className="p-6">Завантаження...</div>;
+    return <div className="p-6">{t('loading')}</div>;
   }
 
   if (isError || !goalType) {
     return (
       <div className="p-6">
-        <h2 className="text-xl text-red-500">Ціль не знайдено (404)</h2>
-        <button 
+        <h2 className="text-xl text-red-500">{t('goal_not_found')}</h2>
+        <button
           onClick={() => router.push('/dashboard')}
           className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
         >
-          Повернутися на головну
+          {t('go_to_dashboard')}
         </button>
       </div>
     );
@@ -61,7 +64,7 @@ const AimPage = () => {
     <div className="flex flex-col md:flex-row gap-4 p-6">
       <Column
         title={goalType.title}
-        data={[]}
+        data={goals}
         type="goal"
         onDelete={onDelete}
       />

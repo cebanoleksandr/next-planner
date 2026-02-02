@@ -52,12 +52,16 @@ export enum CustomFieldType {
 
 export interface IGoal {
   id: string;
-  goalTypeId: string;
+  typeId: string;
   title: string;
   description: string;
-  labels: ILabel[];
-  checkList: ICheckList[];
+  // labels: ILabel[];
+  // checkList: ICheckList[];
   customFieldAnswers?: ICustomFieldAnswer[];
+  status: GoalStatus;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface ICreateGoal {

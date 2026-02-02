@@ -3,8 +3,7 @@ import { ICreateGoal, IGoal, IPage } from '@/utils/interfaces';
 
 export const GoalService = {
   async getAll(page = 0, size = 20) {
-    const { data } = await apiClient.get<IPage<IGoal[]>>(`/api/goals?page=${page}&size=${size}`);
-    console.log('GoalService.getAll data:', typeof data);
+    const { data } = await apiClient.get<IPage<IGoal>>(`/api/goals?page=${page}&size=${size}`);
     return data.content;
   },
 

@@ -3,6 +3,7 @@ import DatePicker from 'react-datepicker';
 import type { FC, HTMLAttributes } from 'react';
 import { Field, type FieldProps, ErrorMessage } from 'formik';
 import TextError from './TextError';
+import { useTranslations } from 'next-intl';
 
 interface IProps extends HTMLAttributes<HTMLElement> {
   label: string;
@@ -12,6 +13,8 @@ interface IProps extends HTMLAttributes<HTMLElement> {
 }
 
 const FormikDatePicker: FC<IProps> = ({ label, name, isError, isTouched }) => {
+  const t = useTranslations('Forms');
+
   return (
     <div className="mb-6 relative">
       <label htmlFor={name} className={`${isError && isTouched && 'text-red-500'} font-semibold w-full mb-1 block text-white`}>
@@ -29,7 +32,7 @@ const FormikDatePicker: FC<IProps> = ({ label, name, isError, isTouched }) => {
               selected={selectedDate}
               onChange={(date: Date | null) => setFieldValue(name, date)}
               onBlur={() => setFieldTouched(name, true)}
-              placeholderText="Select a date"
+              placeholderText={t('select_date')}
               className="w-full p-2 border rounded"
             />
           );

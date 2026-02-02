@@ -4,6 +4,12 @@
     "calendar": "Calendar",
     "configuration": "Configuration"
   },
+  "AimPage": {
+    "invalid_goal_id": "Invalid Goal ID",
+    "go_to_dashboard": "Go to Dashboard",
+    "loading": "Loading...",
+    "goal_not_found": "Goal Not Found (404)"
+  },
   "SearchBar": {
     "placeholder": "Search..."
   },
@@ -11,7 +17,8 @@
     "button_type": "Add Goal Type",
     "button_goal": "Add Goal",
     "empty_goal": "No goals yet. Click the button below to add your first goal!",
-    "empty_type": "No goal types yet. Click the button below to add your first goal type!"
+    "empty_type": "No goal types yet. Click the button below to add your first goal type!",
+    "delete": "Delete"
   },
   "Popups": {
     "close": "Close",
@@ -72,6 +79,36 @@
     "enter_goal_type_name": "Enter goal type name",
     "enter_goal_name": "Enter goal name",
     "enter_description": "Enter description",
-    "custom_field_empty": "No custom fields added yet"
+    "custom_field_empty": "No custom fields added yet",
+    "select_custom_field": "Select custom field",
+    "title_required": "Title is required",
+    "type_required": "Type is required",
+    "select_valid_goal_type": "Please select a valid goal type",
+    "due_date_required": "Due date is required",
+    "invalid_due_date": "Invalid due date",
+    "title": "Title",
+    "create": "Create",
+    "enter_goal_description": "Enter goal description",
+    "type": "Type",
+    "custom_field_required": "Custom field name is required",
+    "value_required": "Value is required",
+    "field_label_required": "Field label is required",
+    "no_custom_fields_edded": "No custom fields added yet",
+    "field_label": "Field Label",
+    "field_type": "Field Type",
+    "cancel": "Cancel",
+    "select_date": "Select a date"
+  },
+  "Header": {
+    "logout": "Log Out",
+    "settings": "Settings",
+    "profile": "Profile"
+  },
+  "GoalCard": {
+    "delete": "Delete",
+    "edit": "Edit"
+  },
+  "LanguageSwitcher": {
+    "label": "Change language"
   }
 }

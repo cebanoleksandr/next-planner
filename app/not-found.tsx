@@ -1,7 +1,11 @@
+import { useTranslations } from "next-intl";
+
 const NotFound = () => {
+  const t = useTranslations('AimPage');
+
   return (
     <div>
-      <h1>404 Not Found</h1>
+      <h1>{t('goal_not_found')}</h1>
     </div>
   );
 }

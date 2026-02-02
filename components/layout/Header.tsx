@@ -11,12 +11,15 @@ import { ISidebarItem } from '@/utils/interfaces';
 import ContextMenu, { IContextMenuItem } from '../UI/ContextMenu';
 import { useRouter } from 'next/navigation';
 import { useKeycloak } from '@react-keycloak/web';
+import { useTranslations } from 'next-intl';
 
 interface IProps {
   sidebarItems: ISidebarItem[];
 }
 
 const Header: FC<IProps> = ({ sidebarItems }) => {
+  const t = useTranslations('Header');
+
   const router = useRouter();
   const { keycloak } = useKeycloak();
 
@@ -31,9 +34,9 @@ const Header: FC<IProps> = ({ sidebarItems }) => {
   };
 
   const contextMenuOptions: IContextMenuItem[] = [
-    { text: 'Profile', onSelect: () => router.push('/profile')},
-    { text: 'Settings', onSelect: () => router.push('/settings')},
-    { text: 'Logout', onSelect: () => setIsLogoutPopupVisible(true)},
+    { text: t('profile'), onSelect: () => router.push('/profile')},
+    { text: t('settings'), onSelect: () => router.push('/settings')},
+    { text: t('logout'), onSelect: () => setIsLogoutPopupVisible(true)},
   ];
 
   return (

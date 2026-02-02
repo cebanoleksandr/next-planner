@@ -8,6 +8,7 @@ import Button from "../UI/Button";
 import FormikControl from "./FormControl";
 import { getGoalTypeOptions } from "@/utils/helpers";
 import { useGetGoalTypesQuery } from "@/react-query/queries/goalTypesQueries/useGetGoalTypesQuery";
+import { useTranslations } from "next-intl";
 
 interface IValues {
   title: string;
@@ -21,10 +22,11 @@ interface IProps {
 }
 
 const CreateGoalForm: FC<IProps> = ({ onClose, onCreate }) => {
+  const t = useTranslations('Forms');
   const { goalTypes } = useGetGoalTypesQuery();
 
   const dropdownOptions: IOption[] = [
-    { key: 'Select a custom field type', value: '' },
+    { key: t('select_custom_field'), value: '' },
     ...getGoalTypeOptions(goalTypes),
   ];
 
@@ -35,10 +37,10 @@ const CreateGoalForm: FC<IProps> = ({ onClose, onCreate }) => {
   };
 
   const validationSchema = Yup.object({
-    title: Yup.string().required('Title is required'),
-    type: Yup.string().required('Type is required').test(
+    title: Yup.string().required(t('title_required')),
+    type: Yup.string().required(t('type_required')).test(
       'is-valid-type',
-      'Please select a valid goal type',
+      t('select_valid_goal_type'),
       value => value !== undefined && value !== ''
     ),
   });
@@ -67,7 +69,7 @@ const CreateGoalForm: FC<IProps> = ({ onClose, onCreate }) => {
           <Form className="p-5 overflow-y-auto max-h-150 scrollbar-md">
             <FormikControl
               control='input'
-              label="Title"
+              label={t('title')}
               placeholder='Enter Goal Type title'
               type='text'
               name="title"
@@ -77,7 +79,7 @@ const CreateGoalForm: FC<IProps> = ({ onClose, onCreate }) => {
 
             <FormikControl
               control='select'
-              label="Type"
+              label={t('type')}
               name="type"
               options={dropdownOptions}
               isError={!!formik.errors.type}
@@ -86,8 +88,8 @@ const CreateGoalForm: FC<IProps> = ({ onClose, onCreate }) => {
 
             <FormikControl
               control='textarea'
-              label="Description"
-              placeholder='Enter Goal Type description'
+              label={t('description')}
+              placeholder={t('enter_goal_description')}
               name="description"
               isError={!!formik.errors.description}
               isTouched={!!formik.touched.description}
@@ -95,11 +97,11 @@ const CreateGoalForm: FC<IProps> = ({ onClose, onCreate }) => {
 
             <div className='flex justify-end items-center gap-2'>
               <Button type="button" onClick={onClose} mode="white">
-                Cancel
+                {t('cancel')}
               </Button>
 
               <Button mode="primary">
-                Create
+                {t('create')}
               </Button>
             </div>
           </Form>

@@ -1,7 +1,114 @@
 {
-  "Goals": {
-    "title": "Мої Цілі",
-    "add_button": "Додати нову ціль",
-    "placeholder": "Чого ви хочете досягти?"
+  "Sidebar": {
+    "dashboard": "Панель",
+    "calendar": "Календарь",
+    "configuration": "Конфигурация"
+  },
+  "AimPage": {
+    "invalid_goal_id": "Некорректный ID цели",
+    "go_to_dashboard": "Перейти на панель",
+    "loading": "Загрузка...",
+    "goal_not_found": "Цель не найдена (404)"
+  },
+  "SearchBar": {
+    "placeholder": "Поиск..."
+  },
+  "Column": {
+    "button_type": "Добавить тип цели",
+    "button_goal": "Добавить цель",
+    "empty_goal": "Целей пока нет. Нажмите кнопку ниже, чтобы добавить первую цель!",
+    "empty_type": "Типов целей пока нет. Нажмите кнопку ниже, чтобы добавить первый тип цели!",
+    "delete": "Удалить"
+  },
+  "Popups": {
+    "close": "Закрыть",
+    "delete": "Удалить",
+    "cancel": "Отмена",
+    "confirm": "Подтвердить",
+    "delete_goal": {
+      "title": "Вы уверены, что хотите удалить эту цель?",
+      "confirm_button": "Удалить",
+      "cancel_button": "Отмена"
+    },
+    "delete_goal_type": {
+      "title": "Вы уверены, что хотите удалить этот тип цели?",
+      "confirm_button": "Удалить",
+      "cancel_button": "Отмена"
+    },
+    "add_goal": {
+      "title": "Добавить новую цель"
+    },
+    "add_goal_type": {
+      "title": "Добавить новый тип цели"
+    },
+    "logout": {
+      "title": "Вы уверены, что хотите выйти?",
+      "confirm_button": "Выйти",
+      "cancel_button": "Отмена",
+      "logout": "Выйти"
+    }
+  },
+  "Context_Menu": {
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "logout": "Выйти",
+    "settings": "Настройки",
+    "profile": "Профиль",
+    "add_goal": "Добавить цель",
+    "add_goal_type": "Добавить тип цели"
+  },
+  "Language_Switcher": {
+    "select_language": "Выбрать язык",
+    "english": "Английский",
+    "spanish": "Испанский",
+    "french": "Французский",
+    "german": "Немецкий",
+    "chinese": "Китайский"
+  },
+  "Forms": {
+    "goal_name": "Название цели",
+    "goal_type": "Тип цели",
+    "select_goal_type": "Выбрать тип цели",
+    "description": "Описание",
+    "due_date": "Срок выполнения",
+    "submit": "Отправить",
+    "update": "Обновить",
+    "add_custom_field": "Добавить пользовательское поле",
+    "custom_field_name": "Название пользовательского поля",
+    "custom_field_value": "Значение пользовательского поля",
+    "enter_goal_type_name": "Введите название типа цели",
+    "enter_goal_name": "Введите название цели",
+    "enter_description": "Введите описание",
+    "custom_field_empty": "Пользовательские поля ещё не добавлены",
+    "select_custom_field": "Выбрать пользовательское поле",
+    "title_required": "Название обязательно",
+    "type_required": "Тип обязателен",
+    "select_valid_goal_type": "Пожалуйста, выберите действительный тип цели",
+    "due_date_required": "Срок выполнения обязателен",
+    "invalid_due_date": "Недопустимый срок выполнения",
+    "title": "Название",
+    "create": "Создать",
+    "enter_goal_description": "Введите описание цели",
+    "type": "Тип",
+    "custom_field_required": "Название пользовательского поля обязательно",
+    "value_required": "Значение обязательно",
+    "field_label_required": "Метка поля обязательна",
+    "no_custom_fields_edded": "Пользовательские поля ещё не добавлены",
+    "field_label": "Метка поля",
+    "field_type": "Тип поля",
+    "cancel": "Отмена",
+    "select_date": "Выберите дату"
+  },
+  "Header": {
+    "logout": "Выйти",
+    "settings": "Настройки",
+    "profile": "Профиль"
+  },
+  "GoalCard": {
+    "edit": "Редактировать",
+    "delete": "Удалить"
+  },
+  "LanguageSwitcher": {
+    "label": "Сменить язык"
   }
 }

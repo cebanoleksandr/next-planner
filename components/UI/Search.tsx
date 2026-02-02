@@ -6,10 +6,13 @@ import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import Input from "@/components/UI/Input";
 import Button from "@/components/UI/Button";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {}
 
 const Search: FC<IProps> = ({ className, ...rest }) => {
+  const t = useTranslations('SearchBar');
+
   const [search, setSearch] = useState('');
 
   const router = useRouter();
@@ -28,7 +31,7 @@ const Search: FC<IProps> = ({ className, ...rest }) => {
     <div { ...rest } className={cn('relative w-full', className)}>
       <Input
         className="w-full pr-11"
-        placeholder="Search..."
+        placeholder={t('placeholder')}
         value={search}
         onChange={e => setSearch(e.target.value)}
         onKeyDown={handleKeyDown}

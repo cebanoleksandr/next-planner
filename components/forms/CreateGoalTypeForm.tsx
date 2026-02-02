@@ -5,6 +5,7 @@ import Button from "../UI/Button";
 import { FC } from "react";
 import FormikControl from "./FormControl";
 import { AnimatePresence, motion, Variants } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 interface IValues {
   title: string;
@@ -20,6 +21,8 @@ interface IProps {
 }
 
 const CreateGoalTypeForm: FC<IProps> = ({ onClose, onCreate }) => {
+  const t = useTranslations('Forms');
+
   const dropdownOptions: IOption[] = [
     { key: 'Select a custom field type', value: '' },
     { key: 'String', value: CustomFieldType.STRING },
@@ -52,11 +55,11 @@ const CreateGoalTypeForm: FC<IProps> = ({ onClose, onCreate }) => {
   }
 
   const validationSchema = Yup.object({
-    title: Yup.string().required('Title is required'),
+    title: Yup.string().required(t('title_required')),
     customFields: Yup.array().of(
       Yup.object({
-        label: Yup.string().required('Label is required'),
-        type: Yup.string().required('Type is required'),
+        label: Yup.string().required(t('field_label_required')),
+        type: Yup.string().required(t('type_required')),
       })
     )
   });
@@ -81,7 +84,7 @@ const CreateGoalTypeForm: FC<IProps> = ({ onClose, onCreate }) => {
           <Form className="p-5 overflow-y-auto max-h-150 scrollbar-md">
             <FormikControl
               control='input'
-              label="Title"
+              label={t('title')}
               placeholder='Enter Goal Type title'
               type='text'
               name="title"
@@ -105,13 +108,13 @@ const CreateGoalTypeForm: FC<IProps> = ({ onClose, onCreate }) => {
                             exit={{ opacity: 0, scale: 0.9 }}
                             className="flex flex-col items-center justify-center p-8 border-2 border-dashed border-gray-600 rounded-xl bg-gray-800/50"
                           >
-                            <p className="text-gray-400 mb-4">No custom fields added yet</p>
+                            <p className="text-gray-400 mb-4">{t('no_custom_fields_edded')}</p>
                             <Button
                               type="button"
                               mode="primary"
                               onClick={() => push({ label: '', type: '' })}
                             >
-                              + Add Custom Field
+                              + {t('add_custom_field')}
                             </Button>
                           </motion.div>
                         ) : (
@@ -136,7 +139,7 @@ const CreateGoalTypeForm: FC<IProps> = ({ onClose, onCreate }) => {
                                   <div className="flex-1">
                                     <FormikControl
                                       control='input'
-                                      label={`Field Label ${index + 1}`}
+                                      label={`${t('field_label')} ${index + 1}`}
                                       placeholder="Custom field label"
                                       name={fieldNameLabel}
                                       isError={!!(metaLabel.touched && metaLabel.error)}
@@ -145,7 +148,7 @@ const CreateGoalTypeForm: FC<IProps> = ({ onClose, onCreate }) => {
 
                                     <FormikControl
                                       control='select'
-                                      label={`Field Type ${index + 1}`}
+                                      label={`${t('field_type')} ${index + 1}`}
                                       name={fieldNameType}
                                       isError={!!(metaType.touched && metaType.error)}
                                       isTouched={metaType.touched}
@@ -175,7 +178,7 @@ const CreateGoalTypeForm: FC<IProps> = ({ onClose, onCreate }) => {
                                 className="flex items-center gap-2 text-sm font-medium text-green-500 hover:text-green-400 transition cursor-pointer"
                               >
                                 <span className="size-6 flex items-center justify-center bg-green-500/20 rounded-full">+</span>
-                                Add another field
+                                {t('add_custom_field')}
                               </button>
                             </motion.div>
                           </>
@@ -189,11 +192,11 @@ const CreateGoalTypeForm: FC<IProps> = ({ onClose, onCreate }) => {
 
             <div className='flex justify-end items-center gap-2'>
               <Button type="button" onClick={onClose} mode="white">
-                Cancel
+                {(t('cancel'))}
               </Button>
 
               <Button mode="primary">
-                Create
+                {t('create')}
               </Button>
             </div>
           </Form>

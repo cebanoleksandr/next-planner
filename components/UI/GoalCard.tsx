@@ -2,9 +2,6 @@
 
 import { IGoal, IGoalType } from "@/utils/interfaces";
 import { FC, MouseEvent, useState } from "react";
-import Tag from "./Tag";
-import { Bars3BottomLeftIcon } from "@heroicons/react/24/outline";
-import { isGoal } from "@/utils/helpers";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
 import ContextMenu, { IContextMenuItem } from "./ContextMenu";
 import DeleteGoalTypePopup from "../popups/DeleteGoalTypePopup";
@@ -12,6 +9,7 @@ import { useDeleteGoalTypeMutation } from "@/react-query/mutations/goalTypesMuta
 import { useDeleteGoalMutation } from "@/react-query/mutations/goalsMutations/useDeleteGoalMutation";
 import DeleteGoalPopup from "../popups/DeleteGoalPopup";
 import GoalTypePopup from "../popups/GoalTypePopup";
+import { useTranslations } from "next-intl";
 
 interface IProps {
   data: IGoal | IGoalType;
@@ -19,6 +17,7 @@ interface IProps {
 }
 
 const GoalCard: FC<IProps> = ({ data, type }) => {
+  const t = useTranslations('GoalCard');
   const { deleteGoalType } = useDeleteGoalTypeMutation();
   const { deleteGoal } = useDeleteGoalMutation();
 
@@ -56,7 +55,7 @@ const GoalCard: FC<IProps> = ({ data, type }) => {
       active:bg-gray-500 cursor-pointer transition duration-300"
       onClick={() => setIsCardPopupVisible(true)}
     >
-      {isGoal(data) && (
+      {/* {isGoal(data) && (
         <div className="flex items-center gap-1 mb-2">
           {data.labels.map(label => (
             <div
@@ -66,11 +65,11 @@ const GoalCard: FC<IProps> = ({ data, type }) => {
             ></div>
           ))}
         </div>
-      )}
+      )} */}
 
       <p className="font-medium my-3">{data.title}</p>
 
-      {isGoal(data) && !!data.checkList.length && (
+      {/* {isGoal(data) && !!data.checkList.length && (
         <div className="mb-2">
           <Tag color="ghost" size="small" className="border-none">
             <div className="flex items-center gap-2">
@@ -79,7 +78,7 @@ const GoalCard: FC<IProps> = ({ data, type }) => {
             </div>
           </Tag>
         </div>
-      )}
+      )} */}
 
       {/* {!!goalCard.deadline && (
         <Tag color={getColor} size="small" className="border-none">

@@ -6,6 +6,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useCreateGoalMutation } from "@/react-query/mutations/goalsMutations/useCreateGoalMutation";
 import { ICreateGoal } from "@/utils/interfaces";
 import CreateGoalForm from "../forms/CreateGoalForm";
+import { useTranslations } from "next-intl";
 
 interface IProps {
   isVisible: boolean;
@@ -13,6 +14,7 @@ interface IProps {
 }
 
 const AddGoalPopup: FC<IProps> = ({ isVisible, onClose }) => {
+  const t = useTranslations('Popups');
   const { createGoal } = useCreateGoalMutation();
 
   const onCreate = (goalData: ICreateGoal) => {
@@ -30,7 +32,7 @@ const AddGoalPopup: FC<IProps> = ({ isVisible, onClose }) => {
         </div>
 
         <h2 className='text-center text-white text-2xl font-semibold mb-4'>
-          Add Goal
+          {t('add_goal.title')}
         </h2>
 
         <CreateGoalForm onClose={onClose} onCreate={onCreate} />

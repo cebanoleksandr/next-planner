@@ -2,6 +2,7 @@ import { FC } from "react";
 import BasePopup from "./BasePopup";
 import Button from "../UI/Button";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { useTranslations } from "next-intl";
 
 interface IProps {
   isVisible: boolean;
@@ -11,13 +12,15 @@ interface IProps {
 }
 
 const DeleteGoalPopup: FC<IProps> = ({ isVisible, onClose, title, onDelete }) => {
+  const t = useTranslations('Popups');
+
   const handleCancel = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Зупиняємо клік тут теж
+    e.stopPropagation();
     onClose();
   };
 
   const handleDelete = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Зупиняємо клік, щоб не відкрилася картка
+    e.stopPropagation();
     onDelete();
     onClose();
   };
@@ -32,20 +35,20 @@ const DeleteGoalPopup: FC<IProps> = ({ isVisible, onClose, title, onDelete }) =>
         </div>
 
         <h2 className='text-center text-white text-2xl font-semibold mb-4'>
-          Delete {title}
+          {t('delete')} {title}
         </h2>
 
         <div className='mb-10'>
-          <p className="text-gray-400 font-semibold text-center">Are you sure you want to delete this goal?</p>
+          <p className="text-gray-400 font-semibold text-center">{t('delete_goal.title')}</p>
         </div>
 
         <div className='flex justify-end items-center gap-2'>
           <Button onClick={onClose} mode="white">
-            Cancel
+            {t('cancel')}
           </Button>
 
           <Button onClick={handleDelete} mode="error">
-            Delete
+            {t('delete')}
           </Button>
         </div>
       </div>

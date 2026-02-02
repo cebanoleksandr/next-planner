@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import Button from "../UI/Button";
 import FormikControl from "./FormControl";
 import { FC, useCallback, useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 interface IValues {
   customFields: Array<{
@@ -21,6 +22,8 @@ interface IProps {
 }
 
 const CustomFieldForm: FC<IProps> = ({ customFields, onUpdate }) => {
+  const t = useTranslations('Forms');
+
   const dropdownOptions: IOption[] = [
     { key: 'Select a custom field type', value: '' },
     { key: 'String', value: CustomFieldType.STRING },
@@ -41,8 +44,8 @@ const CustomFieldForm: FC<IProps> = ({ customFields, onUpdate }) => {
   const validationSchema = Yup.object({
     customFields: Yup.array().of(
       Yup.object({
-        label: Yup.string().required('Label is required'),
-        type: Yup.string().required('Type is required'),
+        label: Yup.string().required(t('field_label_required')),
+        type: Yup.string().required(t('type_required')),
       })
     )
   });
@@ -103,13 +106,13 @@ const CustomFieldForm: FC<IProps> = ({ customFields, onUpdate }) => {
                             exit={{ opacity: 0, scale: 0.9 }}
                             className="flex flex-col items-center justify-center p-8 border-2 border-dashed border-gray-600 rounded-xl bg-gray-800/50"
                           >
-                            <p className="text-gray-400 mb-4">No custom fields added yet</p>
+                            <p className="text-gray-400 mb-4">{t('no_custom_fields_edded')}</p>
                             <Button
                               type="button"
                               mode="primary"
                               onClick={() => push({ label: '', type: '' })}
                             >
-                              + Add Custom Field
+                              + {t('add_custom_field')}
                             </Button>
                           </motion.div>
                         ) : (
@@ -134,8 +137,8 @@ const CustomFieldForm: FC<IProps> = ({ customFields, onUpdate }) => {
                                   <div className="flex-1">
                                     <FormikControl
                                       control='input'
-                                      label={`Field Label ${index + 1}`}
-                                      placeholder="Custom field label"
+                                      label={`${t('field_label')} ${index + 1}`}
+                                      placeholder={t('field_label')}
                                       name={fieldNameLabel}
                                       isError={!!(metaLabel.touched && metaLabel.error)}
                                       isTouched={metaLabel.touched}
@@ -143,7 +146,7 @@ const CustomFieldForm: FC<IProps> = ({ customFields, onUpdate }) => {
 
                                     <FormikControl
                                       control='select'
-                                      label={`Field Type ${index + 1}`}
+                                      label={`${t('field_type')} ${index + 1}`}
                                       name={fieldNameType}
                                       isError={!!(metaType.touched && metaType.error)}
                                       isTouched={metaType.touched}
@@ -173,7 +176,7 @@ const CustomFieldForm: FC<IProps> = ({ customFields, onUpdate }) => {
                                 className="flex items-center gap-2 text-sm font-medium text-green-500 hover:text-green-400 transition cursor-pointer"
                               >
                                 <span className="size-6 flex items-center justify-center bg-green-500/20 rounded-full">+</span>
-                                Add another field
+                                {t('add_custom_field')}
                               </button>
                             </motion.div>
                           </>
