@@ -49,7 +49,7 @@ const GoalTypePopup: FC<IProps> = ({ isVisible, onClose, goalType }) => {
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            placeholder={t('add_goal_type')}
+            placeholder={t('add_goal_type.title')}
             className="w-full bg-gray-800 text-white text-2xl font-semibold border-0 focus:ring-0"
             onKeyDown={onEnterPress}
             onBlur={onBlur}

@@ -3,7 +3,6 @@ import AddGoalTypePopup from "@/components/popups/AddGoalTypePopup";
 import DeleteGoalTypePopup from "@/components/popups/DeleteGoalTypePopup";
 import ContextMenu, { IContextMenuItem } from "@/components/UI/ContextMenu";
 import GoalCard from "@/components/UI/GoalCard";
-import { useDeleteGoalTypeMutation } from "@/react-query/mutations/goalTypesMutations/useDeleteGoalTypeMutation";
 import { IGoal, IGoalType } from "@/utils/interfaces";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/react/24/solid";
 import cn from "classnames";
@@ -59,6 +58,14 @@ const Column: FC<IProps> = ({ title, data, type, onDelete = () => {}, ...props }
           ))}
         </div>
       </div>
+
+      {!data.length && (
+        <div className="my-3">
+          <p className="text-center text-gray-400 text-xl font-semibold">
+            {type === 'goal' ? t('empty_goal') : t('empty_type')}
+          </p>
+        </div>
+      )}
 
       <div>
         <button 

@@ -70,7 +70,7 @@ const CreateGoalForm: FC<IProps> = ({ onClose, onCreate }) => {
             <FormikControl
               control='input'
               label={t('title')}
-              placeholder='Enter Goal Type title'
+              placeholder={t('enter_goal_name')}
               type='text'
               name="title"
               isError={!!formik.errors.title}
