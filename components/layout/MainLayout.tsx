@@ -40,12 +40,11 @@ const MainLayout: FC<IProps> = ({ children }) => {
 
   const options = useMemo(() => getSidebarOptions(goalTypes), [goalTypes]);
 
-  const sidebarItems: ISidebarItem[] = useMemo(() => [
-    ...options,
+  const sidebarItems: ISidebarItem[] = [
     { id: 'dashboard', title: t('dashboard'), icon: Squares2X2Icon, href: '/dashboard' },
     { id: 'calendar', title: t('calendar'), icon: CalendarIcon, href: '/calendar' },
     { id: 'configuration', title: t('configuration'), icon: AdjustmentsHorizontalIcon, href: '/configuration' },
-  ], [options]);
+  ];
 
   if (!initialized) {
     return null;
@@ -54,11 +53,11 @@ const MainLayout: FC<IProps> = ({ children }) => {
   return (
     <div className='flex min-h-screen w-full bg-gray-100'>
       <div className='hidden md:block md:w-64 md:shrink-0'>
-        <Sidebar sidebarItems={sidebarItems} />
+        <Sidebar sidebarItems={sidebarItems} options={options} />
       </div>
 
       <div className='flex-1 min-w-0'>
-        <Header sidebarItems={sidebarItems} />
+        <Header sidebarItems={sidebarItems} options={options} />
 
         <main>
           <div className='px-10 pt-20'>

@@ -8,7 +8,7 @@ export const CustomFieldDefinitionService = {
   },
 
   async getByGoalType(goalTypeId: string) {
-    const { data } = await apiClient.get<IPage<ICustomFieldDefinition[]>>(`/api/custom-fields/definitions/type/${goalTypeId}`);
+    const { data } = await apiClient.get<IPage<ICustomFieldDefinition[]>>(`/api/goal-types/${goalTypeId}/custom-fields`);
     return data;
   },
 

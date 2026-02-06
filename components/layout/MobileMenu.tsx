@@ -13,9 +13,10 @@ interface IProps {
   isOpen: boolean;
   onClose: () => void;
   sidebarItems: ISidebarItem[];
+  options: ISidebarItem[];
 }
 
-const MobileMenu: FC<IProps> = ({ isOpen, onClose, sidebarItems }) => {
+const MobileMenu: FC<IProps> = ({ isOpen, onClose, sidebarItems, options }) => {
   const pathname = usePathname();
   const savedPathname = useRef(pathname);
 
@@ -79,6 +80,16 @@ const MobileMenu: FC<IProps> = ({ isOpen, onClose, sidebarItems }) => {
       </div>
 
       <ul className="mx-4 space-y-2">
+        {!!options.length && (
+          <>
+            {options.map((item) => (
+              <SidebarItem key={item.title} item={item} />
+            ))}
+
+            <div className='w-full h-0.5 bg-gray-400 my-3'></div>
+          </>
+        )}
+
         {sidebarItems.map((item) => (
           <SidebarItem key={item.title} item={item} />
         ))}

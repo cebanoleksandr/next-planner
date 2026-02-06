@@ -10,6 +10,7 @@ import { useDeleteGoalMutation } from "@/react-query/mutations/goalsMutations/us
 import DeleteGoalPopup from "../popups/DeleteGoalPopup";
 import GoalTypePopup from "../popups/GoalTypePopup";
 import { useTranslations } from "next-intl";
+import GoalPopup from "../popups/GoalPopup";
 
 interface IProps {
   data: IGoal | IGoalType;
@@ -27,13 +28,13 @@ const GoalCard: FC<IProps> = ({ data, type }) => {
   const [isCardPopupVisible, setIsCardPopupVisible] = useState(false);
 
   const contextMenuGoalOptions: IContextMenuItem[] = [
-    { text: 'Delete', onSelect: () => setIsDeleteGoalPopupVisible(true), color: 'red' },
+    { text: t('delete'), onSelect: () => setIsDeleteGoalPopupVisible(true), color: 'red' },
     // { text: 'Edit', onSelect: () => setIsCardPopupVisible(true) },
   ];
 
   const contextMenuTypeOptions: IContextMenuItem[] = [
-    { text: 'Delete', onSelect: () => setIsDeleteTypePopupVisible(true), color: 'red' },
-    { text: 'Edit', onSelect: () => setIsCardPopupVisible(true) },
+    { text: t('delete'), onSelect: () => setIsDeleteTypePopupVisible(true), color: 'red' },
+    { text: t('edit'), onSelect: () => setIsCardPopupVisible(true) },
   ];
 
   const onOpenTypeOptions = (event: MouseEvent<HTMLButtonElement>) => {
@@ -98,6 +99,7 @@ const GoalCard: FC<IProps> = ({ data, type }) => {
           >
             <button
               className="p-2 hover:bg-gray-700 active:bg-gray-600 rounded-lg transition duration-300 cursor-pointer"
+              onClick={onOpenTypeOptions}
             >
               <EllipsisHorizontalIcon className="w-4 h-4" />
             </button>
@@ -145,6 +147,14 @@ const GoalCard: FC<IProps> = ({ data, type }) => {
           isVisible={isCardPopupVisible}
           onClose={() => setIsCardPopupVisible(false)}
           goalType={data as IGoalType}
+        />
+      )}
+
+      {type === 'goal' && (
+        <GoalPopup
+          isVisible={isCardPopupVisible}
+          onClose={() => setIsCardPopupVisible(false)}
+          goal={data as IGoal}
         />
       )}
     </div>

@@ -2,7 +2,10 @@
 
 import { FC, useState } from 'react';
 import {
+  ArrowLeftEndOnRectangleIcon,
   Bars3Icon,
+  Cog6ToothIcon,
+  UserIcon,
 } from '@heroicons/react/24/solid';
 import MobileMenu from './MobileMenu';
 import Search from '../UI/Search';
@@ -15,9 +18,10 @@ import { useTranslations } from 'next-intl';
 
 interface IProps {
   sidebarItems: ISidebarItem[];
+  options: ISidebarItem[];
 }
 
-const Header: FC<IProps> = ({ sidebarItems }) => {
+const Header: FC<IProps> = ({ sidebarItems, options }) => {
   const t = useTranslations('Header');
 
   const router = useRouter();
@@ -34,9 +38,9 @@ const Header: FC<IProps> = ({ sidebarItems }) => {
   };
 
   const contextMenuOptions: IContextMenuItem[] = [
-    { text: t('profile'), onSelect: () => router.push('/profile')},
-    { text: t('settings'), onSelect: () => router.push('/settings')},
-    { text: t('logout'), onSelect: () => setIsLogoutPopupVisible(true)},
+    { text: t('profile'), onSelect: () => router.push('/profile'), icon: <UserIcon className='size-4' /> },
+    { text: t('settings'), onSelect: () => router.push('/settings'), icon: <Cog6ToothIcon className='size-4' /> },
+    { text: t('logout'), onSelect: () => setIsLogoutPopupVisible(true), icon: <ArrowLeftEndOnRectangleIcon className='size-4' /> },
   ];
 
   return (
@@ -66,6 +70,7 @@ const Header: FC<IProps> = ({ sidebarItems }) => {
 
       <MobileMenu
         sidebarItems={sidebarItems}
+        options={options}
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
       />

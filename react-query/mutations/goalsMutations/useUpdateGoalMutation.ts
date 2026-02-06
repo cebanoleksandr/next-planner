@@ -5,7 +5,7 @@ import { useAppDispatch } from '@/storage/hooks';
 import { setAlertAC } from '@/storage/alertSlice';
 import { GoalService } from '@/api/services/goalService';
 
-interface UpdateGoalParams {
+export interface UpdateGoalParams {
   id: string;
   data: Partial<IGoal>;
 }

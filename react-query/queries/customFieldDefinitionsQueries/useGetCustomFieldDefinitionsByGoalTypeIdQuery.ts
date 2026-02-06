@@ -4,7 +4,7 @@ import { useAppDispatch } from '@/storage/hooks';
 import { setAlertAC } from '@/storage/alertSlice';
 import { CustomFieldDefinitionService } from '@/api/services/customFieldDefinitionService';
 
-export const useGetCustomFieldDefinitionByGoalTypeId = (goalTypeId: string) => {
+export const useGetCustomFieldDefinitionsByGoalTypeId = (goalTypeId: string) => {
   const dispatch = useAppDispatch();
 
   const fetchInitial = async () => {
@@ -18,7 +18,7 @@ export const useGetCustomFieldDefinitionByGoalTypeId = (goalTypeId: string) => {
   };
 
   const {
-    data: customFieldDefinition = null,
+    data: customFieldDefinitions = [],
     isLoading,
     isError,
     error,
@@ -30,7 +30,7 @@ export const useGetCustomFieldDefinitionByGoalTypeId = (goalTypeId: string) => {
   });
 
   return {
-    customFieldDefinition,
+    customFieldDefinitions,
     isLoading,
     isError,
     error,

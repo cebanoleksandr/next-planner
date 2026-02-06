@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, ReactElement, Fragment } from 'react';
+import React, { useEffect, useRef, ReactElement, Fragment, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -7,6 +7,7 @@ export interface IContextMenuItem {
   onSelect(e: MouseEvent, item: IContextMenuItem): void;
   color?: string;
   subItems?: IContextMenuItem[];
+  icon?: ReactNode;
 }
 
 export interface IContextMenuProps {
@@ -76,7 +77,7 @@ const ContextMenu: React.FC<IContextMenuProps> = ({ state, setState, children, i
                     setState(false);
                   }}
                 >
-                  {item.text}
+                  <span className='flex items-center gap-2'>{item.icon} {item.text}</span>
                 </div>
               ))}
             </motion.div>
