@@ -3,12 +3,12 @@ import { ICustomFieldDefinition, IPage } from '@/utils/interfaces';
 
 export const CustomFieldDefinitionService = {
   async getAll() {
-    const { data } = await apiClient.get<IPage<ICustomFieldDefinition[]>>('/api/custom-fields/definitions');
+    const { data } = await apiClient.get<IPage<ICustomFieldDefinition>>('/api/custom-fields/definitions');
     return data;
   },
 
   async getByGoalType(goalTypeId: string) {
-    const { data } = await apiClient.get<IPage<ICustomFieldDefinition[]>>(`/api/goal-types/${goalTypeId}/custom-fields`);
+    const { data } = await apiClient.get<ICustomFieldDefinition[]>(`/api/goal-types/${goalTypeId}/custom-fields`);
     return data;
   },
 

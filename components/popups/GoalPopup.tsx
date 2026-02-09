@@ -5,6 +5,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { UpdateGoalParams, useUpdateGoalMutation } from "@/react-query/mutations/goalsMutations/useUpdateGoalMutation";
 import { useTranslations } from "next-intl";
 import { useGetCustomFieldDefinitionsByGoalTypeId } from "@/react-query/queries/customFieldDefinitionsQueries/useGetCustomFieldDefinitionsByGoalTypeIdQuery";
+import CustomFieldsList from "../business/custom-field/CustomFieldsList";
 
 interface IProps {
   isVisible: boolean;
@@ -44,7 +45,7 @@ const GoalPopup: FC<IProps> = ({ goal, onClose, isVisible }) => {
   return (
     <BasePopup isVisible={isVisible} onClose={onClose}>
       <div className="flex flex-col w-[90vw] md:w-180 lg:w-200">
-        <div className='flex justify-between items-center'>
+        <div className='flex justify-between items-center mb-5'>
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -61,7 +62,8 @@ const GoalPopup: FC<IProps> = ({ goal, onClose, isVisible }) => {
           </div>
         </div>
 
-        <div>CUSTOM FIELDS BLOCK</div>
+        <CustomFieldsList customFields={customFieldDefinitions} />
+
         <div>DESCRIPTION BLOCK</div>
         <div>CHECK LIST BLOCK</div>
       </div>
