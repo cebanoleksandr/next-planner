@@ -33,9 +33,9 @@ const FormikControl: FC<IProps> = ({
     case 'input':
       return (
         <FormikInput
-          {...rest} 
-          label={label} 
-          placeholder={placeholder} 
+          {...rest}
+          label={label}
+          placeholder={placeholder}
           type={type}
           name={name}
           isError={isError}
@@ -45,9 +45,9 @@ const FormikControl: FC<IProps> = ({
     case 'textarea':
       return (
         <FormikTextarea
-          {...rest} 
-          label={label} 
-          placeholder={placeholder} 
+          {...rest}
+          label={label}
+          placeholder={placeholder}
           name={name}
           isError={isError}
           isTouched={isTouched}
@@ -56,7 +56,7 @@ const FormikControl: FC<IProps> = ({
     case 'select':
       return (
         <FormikSelect
-          {...rest} 
+          {...rest}
           label={label}
           name={name}
           isError={isError}
@@ -66,19 +66,20 @@ const FormikControl: FC<IProps> = ({
       );
     case 'radio':
       return (
-        <FormikRadioButtons 
-          {...rest} 
+        <FormikRadioButtons
+          {...rest}
           label={label}
           name={name}
           isError={isError}
           isTouched={isTouched}
           options={options}
+          // disabled={disabled}
         />
       );
     case 'checkbox':
       return (
         <FormikCheckbox
-          {...rest} 
+          {...rest}
           label={label}
           name={name}
           isError={isError}
@@ -93,9 +94,10 @@ const FormikControl: FC<IProps> = ({
           name={name}
           isError={isError}
           isTouched={isTouched}
+          // disabled={disabled}
         />
       );
-  
+
     default:
       return null;
   }

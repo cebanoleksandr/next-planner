@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { ICustomFieldDefinition } from '@/utils/interfaces';
+import { CreateCustomFieldDTO, ICustomFieldDefinition } from '@/utils/interfaces';
 import { EQueries } from '@/react-query/types';
 import { useAppDispatch } from '@/storage/hooks';
 import { setAlertAC } from '@/storage/alertSlice';
@@ -10,10 +10,10 @@ export const useCreateCustomFieldDefinitionMutation = () => {
   const dispatch = useAppDispatch();
 
   const createMutation = useMutation({
-    mutationFn: (customFieldDefinition: Partial<ICustomFieldDefinition>) => CustomFieldDefinitionService.create(customFieldDefinition),
+    mutationFn: (createCustomFieldDTO: CreateCustomFieldDTO) => CustomFieldDefinitionService.create(createCustomFieldDTO),
     onSuccess: () => {
       dispatch(setAlertAC({ text: 'Goal Type created successfully', mode: 'success' }));
-      queryClient.invalidateQueries({ queryKey: [EQueries.createCustomFieldDefinition] });
+      queryClient.invalidateQueries({ queryKey: [EQueries.getGoalTypes] });
     },
     onError: error => {
       dispatch(setAlertAC({ text: error.message, mode: 'error' }));

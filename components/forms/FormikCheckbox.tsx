@@ -19,20 +19,35 @@ const FormikCheckbox: FC<IProps> = ({ label, isError, isTouched, name, options, 
         name={name}
         {...rest}
       >
-        {({ field }: FieldProps<string>) => {
-          return options.map(option => (
-            <Fragment key={option.key}>
-              <input 
-                type="checkbox" 
-                id={option.value} 
-                {...field} 
-                value={option.value} 
-                checked={field.value.includes(option.value)}
-                className="mr-2 ml-4"
-              />
-              <label htmlFor={option.value}>{option.key}</label>
-            </Fragment>
-          ))
+        {({ field,form }: FieldProps<string[]>) => {
+          const safeValue = Array.isArray(field.value) ? field.value : [];
+
+          return options.map(option => {
+            const isChecked = safeValue.includes(option.value);
+
+            return (
+              <Fragment key={option.key}>
+                <input
+                  type="checkbox"
+                  id={option.value}
+                  name={name}
+                  value={option.value}
+                  checked={isChecked}
+                  className="mr-2 ml-4"
+                  onChange={() => {
+                    const nextValue = isChecked
+                      ? safeValue.filter((v: string) => v !== option.value)
+                      : [...safeValue, option.value];
+                    form.setFieldValue(name, nextValue);
+                  }}
+                  onBlur={field.onBlur}
+                />
+                <label htmlFor={option.value} className="text-white">
+                  {option.key}
+                </label>
+              </Fragment>
+            );
+          })
         }}
       </Field>
       <ErrorMessage name={name!}>

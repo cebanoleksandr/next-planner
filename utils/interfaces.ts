@@ -31,16 +31,38 @@ export type ICreateCustomFieldDefinition = Omit<ICustomFieldDefinition, 'id' | '
 
 export interface ICreateGoalType {
   title: string;
-  customFields: ICreateCustomFieldDefinition[];
-  levelNumber?: number;      // Тепер необов'язково
-  goalCards?: IGoal[]; // Тепер необов'язково
 }
 
 export interface ICustomFieldDefinition {
   id: string;
-  key: string;
+  required: boolean;
+  placeholder: string | null;
   label: string;
   type: CustomFieldType;
+}
+
+export interface CreateCustomFieldDTO {
+  goalTypeId: string;
+  customFieldDefinition: {
+    label: string;
+    type: CustomFieldType;
+  }
+}
+
+export interface UpdateCustomFieldDTO {
+  goalTypeId: string;
+  customFieldDefinition: {
+    id: string;
+    required: boolean;
+    placeholder: string | null;
+    label: string;
+    type: CustomFieldType;
+  }
+}
+
+export interface DeleteCustomFieldDTO {
+  goalTypeId: string;
+  id: string
 }
 
 export enum CustomFieldType {
@@ -67,7 +89,7 @@ export interface IGoal {
 export interface ICreateGoal {
   title: string;
   description?: string;
-  type: IGoalType;
+  typeId: string;
   status: GoalStatus;
   customAnswers?: ICustomFieldAnswer[];
 }

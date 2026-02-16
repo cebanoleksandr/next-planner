@@ -28,7 +28,7 @@ const GoalPopup: FC<IProps> = ({ goal, onClose, isVisible }) => {
 
     updateGoal({
       id: goal.id,
-      data: { ...goal, ...goalData.data },
+      data: { ...goalData.data },
     });
   };
 

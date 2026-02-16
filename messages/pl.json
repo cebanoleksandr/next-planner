@@ -35,6 +35,9 @@
       "confirm_button": "Usuń",
       "cancel_button": "Anuluj"
     },
+    "delete_custom_field": {
+      "title": "Czy na pewno chcesz usunąć to pole niestandardowe?"
+    },
     "add_goal": {
       "title": "Dodaj nowy cel"
     },
@@ -96,7 +99,10 @@
     "no_custom_fields_edded": "Nie dodano jeszcze żadnych pól niestandardowych",
     "field_label": "Etykieta pola",
     "field_type": "Typ pola",
-    "select_date": "Wybierz datę"
+    "select_date": "Wybierz datę",
+    "save": "Ratować",
+    "required": "Wymagany",
+    "field_placeholder": "Symbol zastępczy"
   },
   "Header": {
     "logout": "Wyloguj się",

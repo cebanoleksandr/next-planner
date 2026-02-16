@@ -35,6 +35,9 @@
       "confirm_button": "Видалити",
       "cancel_button": "Скасувати"
     },
+    "delete_custom_field": {
+      "title": "Ви впевнені, що хочете видалити це кастомне поле? (або «...це спеціальне поле?"
+    },
     "add_goal": {
       "title": "Додати нову ціль"
     },
@@ -97,7 +100,10 @@
     "field_label": "Мітка поля",
     "field_type": "Тип поля",
     "cancel": "Скасувати",
-    "select_date": "Виберіть дату"
+    "select_date": "Виберіть дату",
+    "save": "Зберегти",
+    "required": "Обов'язковий",
+    "field_placeholder": "Заповнювач"
   },
   "Header": {
     "logout": "Вийти",

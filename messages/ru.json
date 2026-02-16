@@ -35,6 +35,9 @@
       "confirm_button": "Удалить",
       "cancel_button": "Отмена"
     },
+    "delete_custom_field": {
+      "title": "Вы уверены, что хотите удалить это настраиваемое поле?"
+    },
     "add_goal": {
       "title": "Добавить новую цель"
     },
@@ -97,7 +100,10 @@
     "field_label": "Метка поля",
     "field_type": "Тип поля",
     "cancel": "Отмена",
-    "select_date": "Выберите дату"
+    "select_date": "Выберите дату",
+    "save": "Сохранить",
+    "required": "Необходимый",
+    "field_placeholder": "Заполнитель"
   },
   "Header": {
     "logout": "Выйти",

@@ -35,6 +35,9 @@
       "confirm_button": "Delete",
       "cancel_button": "Cancel"
     },
+    "delete_custom_field": {
+      "title": "Are you sure you want to delete this custom field?"
+    },
     "add_goal": {
       "title": "Add New Goal"
     },
@@ -97,7 +100,10 @@
     "field_label": "Field Label",
     "field_type": "Field Type",
     "cancel": "Cancel",
-    "select_date": "Select a date"
+    "select_date": "Select a date",
+    "save": "Save",
+    "required": "Required",
+    "field_placeholder": "Placeholder"
   },
   "Header": {
     "logout": "Log Out",

@@ -35,6 +35,9 @@
       "confirm_button": "Eliminar",
       "cancel_button": "Cancelar"
     },
+    "delete_custom_field": {
+      "title": "¿Estás seguro de que quieres eliminar este campo personalizado?"
+    },
     "add_goal": {
       "title": "Agregar nuevo objetivo"
     },
@@ -97,7 +100,10 @@
     "field_label": "Etiqueta del campo",
     "field_type": "Tipo de campo",
     "cancel": "Cancelar",
-    "select_date": "Selecciona una fecha"
+    "select_date": "Selecciona una fecha",
+    "save": "Ahorrar",
+    "required": "Requerido",
+    "field_placeholder": "Marcador de posición"
   },
   "Header": {
     "logout": "Cerrar sesión",

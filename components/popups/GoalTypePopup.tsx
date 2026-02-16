@@ -1,12 +1,15 @@
 'use client';
 
-import { IGoalType } from "@/utils/interfaces";
+import { CreateCustomFieldDTO, ICustomFieldDefinition, IGoalType, UpdateCustomFieldDTO } from "@/utils/interfaces";
 import { FC, useState } from "react";
 import BasePopup from "./BasePopup";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useUpdateGoalTypeMutation } from "@/react-query/mutations/goalTypesMutations/useUpdateGoalTypeMutation";
 import CustomFieldForm from "../forms/CustomFieldForm";
 import { useTranslations } from "next-intl";
+import { useCreateCustomFieldDefinitionMutation } from "@/react-query/mutations/customFieldDefinitionsMutations/useCreateCustomFieldDefinitionMutation";
+import { useUpdateCustomFieldDefinitionMutation } from "@/react-query/mutations/customFieldDefinitionsMutations/useUpdateCustomFieldDefinitionMutation";
+
 
 interface IProps {
   isVisible: boolean;
@@ -17,8 +20,18 @@ interface IProps {
 const GoalTypePopup: FC<IProps> = ({ isVisible, onClose, goalType }) => {
   const t = useTranslations('Popups');
   const { updateGoalType } = useUpdateGoalTypeMutation();
+  const { createCustomFieldDefinition } = useCreateCustomFieldDefinitionMutation();
+  const { updateCustomField } = useUpdateCustomFieldDefinitionMutation();
 
   const [title, setTitle] = useState(goalType.title);
+
+  const createCustomField = (customFieldDefinition: CreateCustomFieldDTO) => {
+    createCustomFieldDefinition(customFieldDefinition)
+  }
+
+  const onUpdateField = (updateCustomFieldDTO: UpdateCustomFieldDTO) => {
+    updateCustomField(updateCustomFieldDTO);
+  }
 
   const onUpdate = (goalTypeData: Partial<IGoalType>) => {
     if (title.trim() === '') {
@@ -64,7 +77,9 @@ const GoalTypePopup: FC<IProps> = ({ isVisible, onClose, goalType }) => {
 
         <CustomFieldForm
           customFields={goalType.customFields}
-          onUpdate={onUpdate}
+          goalTypeId={goalType.id}
+          onCreateField={createCustomField}
+          onUpdateField={onUpdateField}
         />
       </div>
     </BasePopup>

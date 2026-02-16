@@ -18,7 +18,7 @@ export const GoalService = {
   },
 
   async update(id: string, goalData: Partial<IGoal>) {
-    const { data } = await apiClient.put<IGoal>(`/api/goals/${id}`, goalData);
+    const { data } = await apiClient.patch<IGoal>(`/api/goals/${id}`, goalData);
     return data;
   },
 

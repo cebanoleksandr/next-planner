@@ -9,6 +9,7 @@ import FormikControl from "./FormControl";
 import { getGoalTypeOptions } from "@/utils/helpers";
 import { useGetGoalTypesQuery } from "@/react-query/queries/goalTypesQueries/useGetGoalTypesQuery";
 import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 
 interface IValues {
   title: string;
@@ -23,6 +24,8 @@ interface IProps {
 
 const CreateGoalForm: FC<IProps> = ({ onClose, onCreate }) => {
   const t = useTranslations('Forms');
+  const params = useParams();
+  const rawId = (params?.aim || params?.id) as string;
   const { goalTypes } = useGetGoalTypesQuery();
 
   const dropdownOptions: IOption[] = [
@@ -33,7 +36,7 @@ const CreateGoalForm: FC<IProps> = ({ onClose, onCreate }) => {
   const initialValues: IValues = {
     title: '',
     description: '',
-    type: '',
+    type: rawId ?? '',
   };
 
   const validationSchema = Yup.object({
@@ -46,12 +49,10 @@ const CreateGoalForm: FC<IProps> = ({ onClose, onCreate }) => {
   });
 
   const onSubmit = (values: IValues, onSubmitProps: FormikHelpers<IValues>) => {
-    const type = goalTypes.find(gt => gt.id === values.type);
-
     const goalData: ICreateGoal = {
       title: values.title,
       description: values.description,
-      type: type as IGoalType,
+      typeId: values.type,
       status: GoalStatus.NOT_STARTED, // Встановлюємо статус за замовчуванням
     };
     onCreate(goalData);

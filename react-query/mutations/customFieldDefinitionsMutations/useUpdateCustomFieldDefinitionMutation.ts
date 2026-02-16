@@ -1,31 +1,23 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { IGoal } from '@/utils/interfaces';
+import { IGoal, UpdateCustomFieldDTO } from '@/utils/interfaces';
 import { EQueries } from '@/react-query/types';
 import { useAppDispatch } from '@/storage/hooks';
 import { setAlertAC } from '@/storage/alertSlice';
-import { GoalService } from '@/api/services/goalService';
+import { CustomFieldDefinitionService } from '@/api/services/customFieldDefinitionService';
 
-export interface UpdateGoalParams {
-  id: string;
-  data: Partial<IGoal>;
-}
-
-export const useUpdateGoalMutation = () => {
+export const useUpdateCustomFieldDefinitionMutation = () => {
   const queryClient = useQueryClient();
   const dispatch = useAppDispatch();
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }: UpdateGoalParams) => 
-      GoalService.update(id, data),
+    mutationFn: (updateCustomFieldDTO: UpdateCustomFieldDTO) => 
+      CustomFieldDefinitionService.update(updateCustomFieldDTO),
     
-    onSuccess: (_, variables) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({ 
-        queryKey: [EQueries.getGoals] 
+        queryKey: [EQueries.getGoalTypes] 
       });
-      
-      queryClient.invalidateQueries({ 
-        queryKey: [EQueries.getGoalById, variables.id] 
-      });
+      dispatch(setAlertAC({ text: 'Custom Field is updated', mode: 'success' }));
     },
     onError: (error) => {
       dispatch(setAlertAC({ text: error.message, mode: 'error' }));
@@ -34,7 +26,7 @@ export const useUpdateGoalMutation = () => {
 
   return {
     data: updateMutation.data,
-    updateGoal: updateMutation.mutate,
+    updateCustomField: updateMutation.mutate,
     isUpdating: updateMutation.isPending,
     error: updateMutation.error,
     isError: updateMutation.isError,

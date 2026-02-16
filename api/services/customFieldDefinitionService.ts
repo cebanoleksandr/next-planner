@@ -1,5 +1,5 @@
 import { apiClient } from '../index';
-import { ICustomFieldDefinition, IPage } from '@/utils/interfaces';
+import { CreateCustomFieldDTO, DeleteCustomFieldDTO, ICustomFieldDefinition, IPage, UpdateCustomFieldDTO } from '@/utils/interfaces';
 
 export const CustomFieldDefinitionService = {
   async getAll() {
@@ -12,8 +12,17 @@ export const CustomFieldDefinitionService = {
     return data;
   },
 
-  async create(definitionData: Partial<ICustomFieldDefinition>) {
-    const { data } = await apiClient.post<ICustomFieldDefinition>('/api/custom-fields/definitions', definitionData);
+  async create(definitionDto: CreateCustomFieldDTO) {
+    const { data } = await apiClient.post<ICustomFieldDefinition>(`/api/goal-types/${definitionDto.goalTypeId}/custom-fields`, definitionDto.customFieldDefinition);
     return data;
-  }
+  },
+
+  async update(definitionDto: UpdateCustomFieldDTO) {
+    const { data } = await apiClient.put<ICustomFieldDefinition>(`/api/goal-types/${definitionDto.goalTypeId}/custom-fields/${definitionDto.customFieldDefinition.id}`, definitionDto.customFieldDefinition);
+    return data;
+  },
+
+  async delete(definitionDto: DeleteCustomFieldDTO) {
+    return await apiClient.delete<ICustomFieldDefinition>(`/api/goal-types/${definitionDto.goalTypeId}/custom-fields/${definitionDto.id}`);
+  },
 };

@@ -1,16 +1,21 @@
-import { CustomFieldType, ICustomFieldDefinition, IGoalType, IOption } from "@/utils/interfaces";
-import { FieldArray, Form, Formik, FormikHelpers, useFormikContext } from "formik";
+import { CreateCustomFieldDTO, CustomFieldType, ICustomFieldDefinition, IGoalType, IOption, UpdateCustomFieldDTO } from "@/utils/interfaces";
+import { FieldArray, Form, Formik, useFormikContext } from "formik";
 import { AnimatePresence, motion, Variants } from "framer-motion";
 import * as Yup from 'yup';
 import Button from "../UI/Button";
 import FormikControl from "./FormControl";
-import { FC, useCallback, useEffect } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
+import cn from "classnames";
+import { TrashIcon } from "@heroicons/react/24/solid";
+import DeleteCustomFieldPopup from "../popups/DeleteCustomFieldPopup";
+import { useDeleteCustomFieldDefinitionMutation } from "@/react-query/mutations/customFieldDefinitionsMutations/useDeleteCustomFieldDefinitionMutation";
 
 interface IValues {
   customFields: Array<{
     id?: string;
-    key?: string;
+    required?: boolean;
+    placeholder?: string | null;
     label: string;
     type: CustomFieldType | '';
   }>;
@@ -18,11 +23,17 @@ interface IValues {
 
 interface IProps {
   customFields: ICustomFieldDefinition[];
-  onUpdate: (goalTypeData: Partial<IGoalType>) => void
+  goalTypeId: string;
+  onCreateField: (customFieldDefinition: CreateCustomFieldDTO) => void;
+  onUpdateField: (updateCustomFieldDTO: UpdateCustomFieldDTO) => void;
 }
 
-const CustomFieldForm: FC<IProps> = ({ customFields, onUpdate }) => {
+const CustomFieldForm: FC<IProps> = ({ customFields, goalTypeId, onCreateField, onUpdateField }) => {
   const t = useTranslations('Forms');
+  const { deleteCustomField } = useDeleteCustomFieldDefinitionMutation();
+
+  const [isDeleteFieldPopupOPen, setIsDeleteFIeldPopupOpen] = useState(false);
+  const [selectedField, setSelectedField] = useState<ICustomFieldDefinition | null>(null);
 
   const dropdownOptions: IOption[] = [
     { key: 'Select a custom field type', value: '' },
@@ -35,7 +46,8 @@ const CustomFieldForm: FC<IProps> = ({ customFields, onUpdate }) => {
   const initialValues: IValues = {
     customFields: customFields.length > 0 ? customFields.map(field => ({
       id: field.id,
-      key: field.key,
+      required: field.required,
+      placeholder: field.placeholder ?? '',
       label: field.label,
       type: field.type,
     })) : [],
@@ -68,17 +80,51 @@ const CustomFieldForm: FC<IProps> = ({ customFields, onUpdate }) => {
     }
   };
 
-  const onSubmit = (values: IValues) => {
-    const filteredFields = values.customFields.filter(f => f.label && f.type);
+  const openFieldDeletePopup = (field: ICustomFieldDefinition) => {
+    setSelectedField(field);
+    setIsDeleteFIeldPopupOpen(true);
+  }
 
-    const goalTypeData: Partial<IGoalType> = {
-      customFields: filteredFields as ICustomFieldDefinition[],
-    };
-    
-    onUpdate(goalTypeData);
+  const closeFieldDeletePopup = () => {
+    setSelectedField(null);
+    setIsDeleteFIeldPopupOpen(false);
+  }
+
+  const onDeleteCustomField = (id: string) => {
+    deleteCustomField({ id, goalTypeId: goalTypeId });
+  }
+
+  const onSubmit = (values: IValues) => {
+    values.customFields.forEach(field => {
+      if (field.id) {
+        // Existing field, update
+        onUpdateField({
+          customFieldDefinition: {
+            id: field.id,
+            required: field.required!,
+            placeholder: field.placeholder!,
+            label: field.label,
+            type: field.type as CustomFieldType,
+          },
+          goalTypeId: goalTypeId,
+        });
+      } else {
+        // New field, create
+        if (field.label && field.type) {
+          onCreateField({
+            customFieldDefinition: {
+              label: field.label,
+              type: field.type as CustomFieldType,
+            },
+            goalTypeId: goalTypeId,
+          });
+        }
+      }
+    });
   };
 
   return (
+    <div>
     <Formik
       initialValues={initialValues}
       validationSchema={validationSchema}
@@ -87,9 +133,9 @@ const CustomFieldForm: FC<IProps> = ({ customFields, onUpdate }) => {
     >
       {(formik) => (
         <div className='p-2'>
-          <AutoSave debounceMs={500} />
+          <AutoSave debounceMs={1500} />
 
-          <Form className="p-5 overflow-y-auto max-h-150 scrollbar-md">
+          <Form className="mt-5 overflow-y-auto max-h-150 scrollbar-md">
             <div className="mb-6 relative">
               <FieldArray name='customFields'>
                 {({ push, remove, form }) => {
@@ -118,11 +164,14 @@ const CustomFieldForm: FC<IProps> = ({ customFields, onUpdate }) => {
                         ) : (
                           <>
                             {/* Список полів */}
-                            {customFields.map((_: any, index: number) => {
+                            {customFields.map((_: ICustomFieldDefinition, index: number) => {
                               const fieldNameLabel = `customFields[${index}].label`;
                               const fieldNameType = `customFields[${index}].type`;
+                              const fieldRequired = `customFields[${index}].required`;
+                              const fieldPlaceholder = `customFields[${index}].placeholder`;
                               const metaLabel = form.getFieldMeta(fieldNameLabel);
                               const metaType = form.getFieldMeta(fieldNameType);
+                              const isSaved = !!form.values.customFields[index].id
 
                               return (
                                 <motion.div
@@ -134,35 +183,81 @@ const CustomFieldForm: FC<IProps> = ({ customFields, onUpdate }) => {
                                   layout
                                   className='flex gap-2 items-center'
                                 >
-                                  <div className="flex-1">
-                                    <FormikControl
-                                      control='input'
-                                      label={`${t('field_label')} ${index + 1}`}
-                                      placeholder={t('field_label')}
-                                      name={fieldNameLabel}
-                                      isError={!!(metaLabel.touched && metaLabel.error)}
-                                      isTouched={metaLabel.touched}
-                                    />
+                                  <div className={cn("px-4 pt-2 rounded-xl", {
+                                    'bg-yellow-600': !isSaved,
+                                    'bg-green-900': isSaved,
+                                  })}>
+                                    <div className="flex items-center gap-3">
+                                      <div className="w-1/2">
+                                      <FormikControl
+                                        control='input'
+                                        label={`${t('field_label')} ${index + 1}`}
+                                        placeholder={t('field_label')}
+                                        name={fieldNameLabel}
+                                        isError={!!(metaLabel.touched && metaLabel.error)}
+                                        isTouched={metaLabel.touched}
+                                      />
+                                      </div>
 
-                                    <FormikControl
-                                      control='select'
-                                      label={`${t('field_type')} ${index + 1}`}
-                                      name={fieldNameType}
-                                      isError={!!(metaType.touched && metaType.error)}
-                                      isTouched={metaType.touched}
-                                      options={dropdownOptions}
-                                    />
+                                      <div className="w-1/2">
+                                      <FormikControl
+                                        control='select'
+                                        label={`${t('field_type')} ${index + 1}`}
+                                        name={fieldNameType}
+                                        isError={!!(metaType.touched && metaType.error)}
+                                        isTouched={metaType.touched}
+                                        options={dropdownOptions}
+                                      />
+                                      </div>
+                                    </div>
+
+                                    <div className="flex items-center gap-3">
+                                      <div className="mr-5 w-1/2">
+                                        <input
+                                          type="checkbox"
+                                          name={fieldRequired}
+                                          id={'required' + index}
+                                          onChange={form.handleChange}
+                                          onBlur={form.handleBlur}
+                                          checked={!!form.values.customFields[index].required}
+                                          className="mr-3"
+                                        />
+                                        <label htmlFor={'required' + index} className="text-white">
+                                          {t('required')}
+                                        </label>
+                                      </div>
+
+                                      <FormikControl
+                                        control='input'
+                                        label={`${t('field_placeholder')}`}
+                                        placeholder={t('field_placeholder')}
+                                        name={fieldPlaceholder}
+                                        isError={!!(metaLabel.touched && metaLabel.error)}
+                                        isTouched={metaLabel.touched}
+                                      />
+                                    </div>
                                   </div>
 
-                                  <div className="">
-                                    <button
-                                      type='button'
-                                      onClick={() => remove(index)}
-                                      className='size-10 bg-red-500/20 text-red-500 rounded-full text-2xl cursor-pointer 
-                                      hover:bg-red-500 hover:text-white transition duration-300'
-                                    >
-                                      ×
-                                    </button>
+                                  <div>
+                                    {isSaved ? (
+                                      <button
+                                        type='button'
+                                        onClick={() => openFieldDeletePopup(form.values.customFields[index])}
+                                        className='size-10 bg-red-500/20 text-red-500 rounded-full text-2xl cursor-pointer 
+                                        hover:bg-red-500 hover:text-white transition duration-300 flex items-center justify-center'
+                                      >
+                                        <TrashIcon className="size-5" />
+                                      </button>
+                                    ) : (
+                                      <button
+                                        type='button'
+                                        onClick={() => remove(index)}
+                                        className='size-10 bg-red-500/20 text-red-500 rounded-full text-2xl cursor-pointer 
+                                        hover:bg-red-500 hover:text-white transition duration-300'
+                                      >
+                                        ×
+                                      </button>
+                                    )}
                                   </div>
                                 </motion.div>
                               );
@@ -191,13 +286,21 @@ const CustomFieldForm: FC<IProps> = ({ customFields, onUpdate }) => {
         </div>
       )}
     </Formik>
+
+    <DeleteCustomFieldPopup
+      isVisible={isDeleteFieldPopupOPen}
+      onClose={closeFieldDeletePopup}
+      customField={selectedField!}
+      onDelete={onDeleteCustomField}
+    />
+    </div>
   );
 };
 
 export default CustomFieldForm;
 
-const AutoSave = ({ debounceMs = 500 }) => {
-  const { values, submitForm, isValid, dirty } = useFormikContext<any>();
+const AutoSave = ({ debounceMs = 1500 }) => {
+  const { values, submitForm, isValid, dirty } = useFormikContext<IValues>();
 
   // Створюємо функцію для перевірки та відправки
   const debouncedSubmit = useCallback(() => {

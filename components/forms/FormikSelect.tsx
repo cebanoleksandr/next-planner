@@ -1,9 +1,9 @@
 import { ErrorMessage, Field } from "formik";
-import type { FC, HTMLAttributes } from "react";
+import type { FC, SelectHTMLAttributes } from "react";
 import TextError from "./TextError";
 import { IOption } from "@/utils/interfaces";
 
-interface IProps extends HTMLAttributes<HTMLElement> {
+interface IProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label: string;
   isError: boolean;
   isTouched: boolean;
