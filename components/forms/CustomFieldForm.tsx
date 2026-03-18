@@ -184,8 +184,8 @@ const CustomFieldForm: FC<IProps> = ({ customFields, goalTypeId, onCreateField, 
                                   className='flex gap-2 items-center'
                                 >
                                   <div className={cn("px-4 pt-2 rounded-xl", {
-                                    'bg-yellow-600': !isSaved,
-                                    'bg-green-900': isSaved,
+                                    'border-2 border-yellow-600': !isSaved,
+                                    'border-2 border-green-600': isSaved,
                                   })}>
                                     <div className="flex items-center gap-3">
                                       <div className="w-1/2">

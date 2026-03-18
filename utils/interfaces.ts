@@ -125,6 +125,11 @@ export interface ICustomFieldAnswer {
   goalCardId: string;
 }
 
+export interface ICustomFieldAnswerRequest {
+  fieldDefinitionId: string;
+  value: string;
+}
+
 // Интерфейс для Spring Page
 export interface IPage<T> {
   content: T[];

@@ -10,6 +10,8 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "@/react-query/queryClient";
 import { AbstractIntlMessages, NextIntlClientProvider } from 'next-intl';
 
+export let keycloak: Keycloak | null = null;
+
 const AuthLoading = ({ children }: { children: React.ReactNode }) => {
   const { initialized } = useKeycloak();
 
@@ -31,6 +33,7 @@ export const Providers = ({ children, messages, locale }: { children: React.Reac
 
   useEffect(() => {
     setMounted(true);
+    keycloak = keycloakClient
   }, []);
 
   if (!mounted) {
