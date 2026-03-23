@@ -2,7 +2,10 @@
   "Sidebar": {
     "dashboard": "Dashboard",
     "calendar": "Calendar",
-    "configuration": "Configuration"
+    "configuration": "Configuration",
+    "lifeAspect": "Life aspects",
+    "goals": "Goals",
+    "subGoals": "Subgoals"
   },
   "AimPage": {
     "invalid_goal_id": "Invalid Goal ID",

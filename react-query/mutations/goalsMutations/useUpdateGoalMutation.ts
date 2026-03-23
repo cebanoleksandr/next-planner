@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { IGoal } from '@/utils/interfaces';
+import { Goal, GoalRequest } from '@/utils/interfaces';
 import { EQueries } from '@/react-query/types';
 import { useAppDispatch } from '@/storage/hooks';
 import { setAlertAC } from '@/storage/alertSlice';
-import { GoalService } from '@/api/services/goalService';
+import { goalService } from '@/api/services/goalService';
 
 export interface UpdateGoalParams {
   id: string;
-  data: Partial<IGoal>;
+  data: GoalRequest;
 }
 
 export const useUpdateGoalMutation = () => {
@@ -16,7 +16,7 @@ export const useUpdateGoalMutation = () => {
 
   const updateMutation = useMutation({
     mutationFn: ({ id, data }: UpdateGoalParams) => 
-      GoalService.update(id, data),
+      goalService.updateGoal(id, data),
     
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ 

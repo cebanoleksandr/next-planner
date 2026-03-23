@@ -1,4 +1,6 @@
-import { GoalService } from "@/api/services/goalService";
+'use client';
+
+import { goalService } from "@/api/services/goalService";
 import { EQueries } from "@/react-query/types";
 import { setAlertAC } from "@/storage/alertSlice";
 import { useAppDispatch } from "@/storage/hooks";
@@ -18,7 +20,7 @@ export const useGetGoalsQuery = (page?: number, size?: number) => {
       const [, page, size] = queryKey as [EQueries, number?, number?];
 
       try {
-        return await GoalService.getAll(page, size);
+        return await goalService.getGoals(page, size);
       } catch (error) {
         dispatch(
           setAlertAC({

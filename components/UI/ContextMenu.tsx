@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useRef, ReactElement, Fragment, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';

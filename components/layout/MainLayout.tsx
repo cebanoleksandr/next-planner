@@ -1,15 +1,13 @@
 'use client';
 
-import { FC, ReactNode, useEffect, useMemo } from "react";
+import { FC, ReactNode, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import Header from "./Header";
 import Alert from "../UI/Alert";
-import { AdjustmentsHorizontalIcon, CalendarIcon, Squares2X2Icon } from "@heroicons/react/24/solid";
+import { AdjustmentsHorizontalIcon, CalendarIcon, FlagIcon, ListBulletIcon, RectangleGroupIcon, Squares2X2Icon } from "@heroicons/react/24/solid";
 import { ISidebarItem } from "@/utils/interfaces";
 import { useKeycloak } from "@react-keycloak/web";
 import { apiClient } from "@/api";
-import { useGetGoalTypesQuery } from "@/react-query/queries/goalTypesQueries/useGetGoalTypesQuery";
-import { getSidebarOptions } from "@/utils/helpers";
 import { useTranslations } from "next-intl";
 
 interface IProps {
@@ -19,7 +17,6 @@ interface IProps {
 const MainLayout: FC<IProps> = ({ children }) => {
   const t = useTranslations('Sidebar');
   const { keycloak, initialized } = useKeycloak();
-  const { goalTypes } = useGetGoalTypesQuery();
 
   const getUser = async (id: string) => {}
 
@@ -38,13 +35,17 @@ const MainLayout: FC<IProps> = ({ children }) => {
     }
   }, [initialized, keycloak, keycloak.token]);
 
-  const options = useMemo(() => getSidebarOptions(goalTypes), [goalTypes]);
-
   const sidebarItems: ISidebarItem[] = [
     { id: 'dashboard', title: t('dashboard'), icon: Squares2X2Icon, href: '/dashboard' },
     { id: 'calendar', title: t('calendar'), icon: CalendarIcon, href: '/calendar' },
     { id: 'configuration', title: t('configuration'), icon: AdjustmentsHorizontalIcon, href: '/configuration' },
   ];
+
+  const options: ISidebarItem[] = [
+    { id: 'aspects', title: t('lifeAspect'), icon: RectangleGroupIcon, href: '/aspects' },
+    { id: 'goals', title: t('goals'), icon: FlagIcon, href: '/goals' },
+    { id: 'subgoals', title: t('subGoals'), icon: ListBulletIcon, href: '/subgoals' },
+  ]
 
   if (!initialized) {
     return null;

@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, Fragment } from 'react';
+import { FC } from 'react';
 import Link from 'next/link';
 import SidebarItem from './SidebarItem';
 import Search from '../UI/Search';

@@ -4,6 +4,7 @@ import Column from "@/components/business/aims/Column";
 import { useDeleteGoalTypeMutation } from "@/react-query/mutations/goalTypesMutations/useDeleteGoalTypeMutation";
 import { useGetGoalsQuery } from "@/react-query/queries/goalsQueries/useGetGoalsQuery";
 import { useGetGoalTypeById } from "@/react-query/queries/goalTypesQueries/useGetGoalTypeByIdQuery";
+import { Goal } from "@/utils/interfaces";
 import { useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
 
@@ -64,7 +65,7 @@ const AimPage = () => {
     <div className="flex flex-col md:flex-row gap-4 p-6">
       <Column
         title={goalType.title}
-        data={goals}
+        data={goals as Goal[]} 
         type="goal"
         onDelete={onDelete}
       />

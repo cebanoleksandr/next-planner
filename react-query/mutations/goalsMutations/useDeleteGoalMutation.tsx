@@ -2,14 +2,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { EQueries } from '@/react-query/types';
 import { useAppDispatch } from '@/storage/hooks';
 import { setAlertAC } from '@/storage/alertSlice';
-import { GoalService } from '@/api/services/goalService';
+import { goalService } from '@/api/services/goalService';
 
 export const useDeleteGoalMutation = () => {
   const queryClient = useQueryClient();
     const dispatch = useAppDispatch();
 
   const deleteMutation = useMutation({
-    mutationFn: (id: string) => GoalService.delete(id),
+    mutationFn: (id: string) => goalService.deleteGoal(id),
     
     onSuccess: () => {
       queryClient.invalidateQueries({ 

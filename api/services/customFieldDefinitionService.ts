@@ -1,5 +1,5 @@
-import { apiClient } from '../index';
 import { CreateCustomFieldDTO, DeleteCustomFieldDTO, ICustomFieldDefinition, IPage, UpdateCustomFieldDTO } from '@/utils/interfaces';
+import { apiClient } from '../index';
 
 export const CustomFieldDefinitionService = {
   async getAll() {

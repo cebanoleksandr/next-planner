@@ -2,8 +2,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { EQueries } from '@/react-query/types';
 import { useAppDispatch } from '@/storage/hooks';
 import { setAlertAC } from '@/storage/alertSlice';
-import { DeleteCustomFieldDTO } from '@/utils/interfaces';
 import { CustomFieldDefinitionService } from '@/api/services/customFieldDefinitionService';
+import { DeleteCustomFieldDTO } from '@/utils/interfaces';
 
 export const useDeleteCustomFieldDefinitionMutation = () => {
   const queryClient = useQueryClient();

@@ -2,7 +2,10 @@
   "Sidebar": {
     "dashboard": "Panel",
     "calendar": "Kalendarz",
-    "configuration": "Konfiguracja"
+    "configuration": "Konfiguracja",
+    "lifeAspect": "Obszary życia",
+    "goals": "Cele",
+    "subGoals": "Cele cząstkowe"
   },
   "AimPage": {
     "invalid_goal_id": "ID celu jest nieprawidłowy",

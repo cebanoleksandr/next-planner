@@ -2,14 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 import { EQueries } from '@/react-query/types';
 import { useAppDispatch } from '@/storage/hooks';
 import { setAlertAC } from '@/storage/alertSlice';
-import { GoalService } from '@/api/services/goalService';
+import { goalService } from '@/api/services/goalService';
 
 export const useGetGoalsByUserId = (userId: string) => {
   const dispatch = useAppDispatch();
 
   const fetchInitial = async () => {
     try {
-      const data = await GoalService.getByUser(userId);
+      const data = await goalService.getGoalById(userId);
       return data;
     } catch (error: any) {
       dispatch(setAlertAC({ text: 'Something went wrong. Cannot get goals by this user.', mode: 'error' }));

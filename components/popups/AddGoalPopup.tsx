@@ -4,7 +4,7 @@ import { FC } from "react";
 import BasePopup from "./BasePopup";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useCreateGoalMutation } from "@/react-query/mutations/goalsMutations/useCreateGoalMutation";
-import { ICreateGoal } from "@/utils/interfaces";
+import { GoalRequest } from "@/utils/interfaces";
 import CreateGoalForm from "../forms/CreateGoalForm";
 import { useTranslations } from "next-intl";
 
@@ -17,7 +17,7 @@ const AddGoalPopup: FC<IProps> = ({ isVisible, onClose }) => {
   const t = useTranslations('Popups');
   const { createGoal } = useCreateGoalMutation();
 
-  const onCreate = (goalData: ICreateGoal) => {
+  const onCreate = (goalData: GoalRequest) => {
     createGoal(goalData);
     onClose();
   }

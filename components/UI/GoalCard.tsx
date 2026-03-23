@@ -1,40 +1,29 @@
 'use client';
 
-import { IGoal, IGoalType } from "@/utils/interfaces";
+import { Goal } from "@/utils/interfaces";
 import { FC, MouseEvent, useState } from "react";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/solid";
 import ContextMenu, { IContextMenuItem } from "./ContextMenu";
-import DeleteGoalTypePopup from "../popups/DeleteGoalTypePopup";
-import { useDeleteGoalTypeMutation } from "@/react-query/mutations/goalTypesMutations/useDeleteGoalTypeMutation";
 import { useDeleteGoalMutation } from "@/react-query/mutations/goalsMutations/useDeleteGoalMutation";
 import DeleteGoalPopup from "../popups/DeleteGoalPopup";
-import GoalTypePopup from "../popups/GoalTypePopup";
 import { useTranslations } from "next-intl";
 import GoalPopup from "../popups/GoalPopup";
 
 interface IProps {
-  data: IGoal | IGoalType;
-  type: 'goal' | 'type';
+  data: Goal;
 }
 
-const GoalCard: FC<IProps> = ({ data, type }) => {
+const GoalCard: FC<IProps> = ({ data }) => {
   const t = useTranslations('GoalCard');
-  const { deleteGoalType } = useDeleteGoalTypeMutation();
   const { deleteGoal } = useDeleteGoalMutation();
 
   const [isContextMenuOpen, setIsContextMenuOpen] = useState(false);
   const [isDeleteGoalPopupVisible, setIsDeleteGoalPopupVisible] = useState(false);
-  const [isDeleteTypePopupVisible, setIsDeleteTypePopupVisible] = useState(false);
   const [isCardPopupVisible, setIsCardPopupVisible] = useState(false);
 
   const contextMenuGoalOptions: IContextMenuItem[] = [
     { text: t('delete'), onSelect: () => setIsDeleteGoalPopupVisible(true), color: 'red' },
     // { text: 'Edit', onSelect: () => setIsCardPopupVisible(true) },
-  ];
-
-  const contextMenuTypeOptions: IContextMenuItem[] = [
-    { text: t('delete'), onSelect: () => setIsDeleteTypePopupVisible(true), color: 'red' },
-    { text: t('edit'), onSelect: () => setIsCardPopupVisible(true) },
   ];
 
   const onOpenTypeOptions = (event: MouseEvent<HTMLButtonElement>) => {
@@ -43,11 +32,7 @@ const GoalCard: FC<IProps> = ({ data, type }) => {
   };
 
   const onDelete = () => {
-    if (type === 'type') {
-      deleteGoalType((data as IGoalType).id);
-    } else {
-      deleteGoal((data as IGoal).id);
-    }
+    deleteGoal((data as Goal).id);
   }
 
   return (
@@ -90,73 +75,33 @@ const GoalCard: FC<IProps> = ({ data, type }) => {
         </Tag>
       )} */}
 
-      {type === 'goal' && (
-        <div className="absolute top-2 right-2">
-          <ContextMenu
-            state={isContextMenuOpen}
-            setState={setIsContextMenuOpen}
-            items={contextMenuGoalOptions}
+      <div className="absolute top-2 right-2">
+        <ContextMenu
+          state={isContextMenuOpen}
+          setState={setIsContextMenuOpen}
+          items={contextMenuGoalOptions}
+        >
+          <button
+            className="p-2 hover:bg-gray-700 active:bg-gray-600 rounded-lg transition duration-300 cursor-pointer"
+            onClick={onOpenTypeOptions}
           >
-            <button
-              className="p-2 hover:bg-gray-700 active:bg-gray-600 rounded-lg transition duration-300 cursor-pointer"
-              onClick={onOpenTypeOptions}
-            >
-              <EllipsisHorizontalIcon className="w-4 h-4" />
-            </button>
-          </ContextMenu>
-        </div>
-      )}
+            <EllipsisHorizontalIcon className="w-4 h-4" />
+          </button>
+        </ContextMenu>
+      </div>
 
-      {type === 'type' && (
-        <div className="absolute top-2 right-2">
-          <ContextMenu
-            state={isContextMenuOpen}
-            setState={setIsContextMenuOpen}
-            items={contextMenuTypeOptions}
-          >
-            <button
-              className="p-2 hover:bg-gray-700 active:bg-gray-600 rounded-lg transition duration-300 cursor-pointer"
-              onClick={onOpenTypeOptions}
-            >
-              <EllipsisHorizontalIcon className="w-4 h-4" />
-            </button>
-          </ContextMenu>
-        </div>
-      )}
+      <DeleteGoalPopup
+        isVisible={isDeleteGoalPopupVisible}
+        onClose={() => setIsDeleteGoalPopupVisible(false)}
+        title={data.title}
+        onDelete={onDelete}
+      />
 
-      {type === 'type' && (
-        <DeleteGoalTypePopup
-          isVisible={isDeleteTypePopupVisible}
-          onClose={() => setIsDeleteTypePopupVisible(false)}
-          title={data.title}
-          onDelete={onDelete}
-        />
-      )}
-
-      {type === 'goal' && (
-        <DeleteGoalPopup
-          isVisible={isDeleteGoalPopupVisible}
-          onClose={() => setIsDeleteGoalPopupVisible(false)}
-          title={data.title}
-          onDelete={onDelete}
-        />
-      )}
-
-      {type === 'type' && (
-        <GoalTypePopup
-          isVisible={isCardPopupVisible}
-          onClose={() => setIsCardPopupVisible(false)}
-          goalType={data as IGoalType}
-        />
-      )}
-
-      {type === 'goal' && (
-        <GoalPopup
-          isVisible={isCardPopupVisible}
-          onClose={() => setIsCardPopupVisible(false)}
-          goal={data as IGoal}
-        />
-      )}
+      <GoalPopup
+        isVisible={isCardPopupVisible}
+        onClose={() => setIsCardPopupVisible(false)}
+        goal={data as Goal}
+      />
     </div>
   )
 }

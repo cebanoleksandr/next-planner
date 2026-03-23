@@ -1,33 +1,40 @@
-import { apiClient } from '../index';
-import { ICreateGoal, IGoal, IPage } from '@/utils/interfaces';
+import { Goal, GoalRequest, PageResponse, ReorderItemRequest } from "@/utils/interfaces";
+import { apiClient } from "../index";
 
-export const GoalService = {
-  async getAll(page = 0, size = 20) {
-    const { data } = await apiClient.get<IPage<IGoal>>(`/api/goals?page=${page}&size=${size}`);
-    return data.content;
-  },
+export const goalService = {
+  async getGoals(page = 1, size = 10, lifeAspectId?: string, status?: string) {
+    const params = new URLSearchParams({
+      page: page.toString(),
+      size: size.toString(),
+    });
+    if (lifeAspectId) params.append('lifeAspectId', lifeAspectId);
+    if (status) params.append('status', status);
 
-  async getById(id: string) {
-    const { data } = await apiClient.get<IGoal>(`/api/goals/${id}`);
+    const { data } = await apiClient.get<PageResponse<Goal>>(`/goals?${params.toString()}`);
     return data;
   },
 
-  async create(goalData: ICreateGoal) {
-    const { data } = await apiClient.post<IGoal>('/api/goals', goalData);
+  async getGoalById(id: string) {
+    const { data } = await apiClient.get<Goal>(`/goals/${id}`);
     return data;
   },
 
-  async update(id: string, goalData: Partial<IGoal>) {
-    const { data } = await apiClient.patch<IGoal>(`/api/goals/${id}`, goalData);
+  async createGoal(payload: GoalRequest) {
+    const { data } = await apiClient.post<Goal>('/goals', payload);
     return data;
   },
 
-  async delete(id: string) {
-    await apiClient.delete(`/api/goals/${id}`);
+  async updateGoal(id: string, payload: GoalRequest) {
+    const { data } = await apiClient.put<Goal>(`/goals/${id}`, payload);
+    return data;
   },
 
-  async getByUser(userId: string, page = 0, size = 20) {
-    const { data } = await apiClient.get<IGoal[]>(`/api/goals/user/${userId}?page=${page}&size=${size}`);
+  async deleteGoal(id: string) {
+    await apiClient.delete(`/goals/${id}`);
+  },
+
+  async reorderGoals(items: ReorderItemRequest[]) {
+    const { data } = await apiClient.patch<Goal[]>('/goals/reorder', items);
     return data;
   }
 };

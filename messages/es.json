@@ -2,7 +2,10 @@
   "Sidebar": {
     "dashboard": "Panel",
     "calendar": "Calendario",
-    "configuration": "Configuración"
+    "configuration": "Configuración",
+    "lifeAspect": "Áreas de la vida",
+    "goals": "Metas",
+    "subGoals": "Submetas"
   },
   "AimPage": {
     "invalid_goal_id": "ID de objetivo no válido",

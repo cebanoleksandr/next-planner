@@ -1,18 +1,21 @@
+'use client';
+
 import AddGoalPopup from "@/components/popups/AddGoalPopup";
-import AddGoalTypePopup from "@/components/popups/AddGoalTypePopup";
 import DeleteGoalTypePopup from "@/components/popups/DeleteGoalTypePopup";
+import AspectCard from "@/components/UI/AspectCard";
 import ContextMenu, { IContextMenuItem } from "@/components/UI/ContextMenu";
 import GoalCard from "@/components/UI/GoalCard";
-import { IGoal, IGoalType } from "@/utils/interfaces";
+import SubgoalCard from "@/components/UI/SubgoalCard";
+import { Goal, LifeAspect, SubGoal } from "@/utils/interfaces";
 import { EllipsisHorizontalIcon, PlusIcon } from "@heroicons/react/24/solid";
 import cn from "classnames";
 import { useTranslations } from "next-intl";
-import { FC, HTMLAttributes, useMemo, useState } from "react";
+import { FC, HTMLAttributes, useState } from "react";
 
 interface IProps extends HTMLAttributes<HTMLDivElement> {
   title: string;
-  data: IGoal[] | IGoalType[];
-  type: 'goal' | 'type';
+  data: Goal[] | LifeAspect[] | SubGoal[];
+  type: 'goal' | 'aspect' | 'subgoal';
   onDelete?: () => void;
 }
 
@@ -27,10 +30,10 @@ const Column: FC<IProps> = ({ title, data, type, onDelete = () => {}, ...props }
     onDelete();
   };
 
-  const contextMenuTypeOptions: IContextMenuItem[] = useMemo(() => [
-    { text: `${type === 'goal' ? t('button_goal') : t('button_type')}`, onSelect: () => setIsPopupOpen(true), },
-    type === 'goal' ? { text: t('delete'), onSelect: () => setIsDeleteTypePopupVisible(true), color: 'red' } : null,
-  ].filter(Boolean) as IContextMenuItem[], [type]);
+  const contextMenuTypeOptions: IContextMenuItem[] = [
+    { text: t('button_goal'), onSelect: () => setIsPopupOpen(true), },
+    { text: t('delete'), onSelect: () => setIsDeleteTypePopupVisible(true), color: 'red' },
+  ];
 
   return (
     <div className={cn("w-lg bg-gray-800 rounded-xl p-4 text-white")} {...props}>
@@ -53,8 +56,12 @@ const Column: FC<IProps> = ({ title, data, type, onDelete = () => {}, ...props }
 
       <div className="my-3 max-h-150 overflow-auto scrollbar-md">
         <div className="px-1">
-          {data.map(goalCard => (
-            <GoalCard key={goalCard.id} data={goalCard} type={type} />
+          {data.map(item => (
+            <>
+              {type === 'goal' && <GoalCard key={item.id} data={item as Goal} />}
+              {type === 'aspect' && <AspectCard key={item.id} data={item as LifeAspect} />}
+              {type === 'subgoal' && <SubgoalCard key={item.id} data={item as SubGoal} />}
+            </>
           ))}
         </div>
       </div>
@@ -62,7 +69,7 @@ const Column: FC<IProps> = ({ title, data, type, onDelete = () => {}, ...props }
       {!data.length && (
         <div className="my-3">
           <p className="text-center text-gray-400 text-xl font-semibold">
-            {type === 'goal' ? t('empty_goal') : t('empty_type')}
+            {t('empty_goal')}
           </p>
         </div>
       )}
@@ -75,23 +82,14 @@ const Column: FC<IProps> = ({ title, data, type, onDelete = () => {}, ...props }
           onClick={() => setIsPopupOpen(true)}
         >
           <PlusIcon className="size-6 text-white" />
-          {type === 'goal' ? t('button_goal') : t('button_type')}
+          {t('button_goal')}
         </button>
       </div>
 
-      {type === 'type' && (
-        <AddGoalTypePopup
-          isVisible={isPopupOpen}
-          onClose={() => setIsPopupOpen(false)}
-        />
-      )}
-
-      {type === 'goal' && (
-        <AddGoalPopup
-          isVisible={isPopupOpen}
-          onClose={() => setIsPopupOpen(false)}
-        />
-      )}
+      <AddGoalPopup
+        isVisible={isPopupOpen}
+        onClose={() => setIsPopupOpen(false)}
+      />
 
       <DeleteGoalTypePopup
         isVisible={isDeleteTypePopupVisible}

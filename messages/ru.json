@@ -2,7 +2,10 @@
   "Sidebar": {
     "dashboard": "Панель",
     "calendar": "Календарь",
-    "configuration": "Конфигурация"
+    "configuration": "Конфигурация",
+    "lifeAspect": "Сферы жизни",
+    "goals": "Цели",
+    "subGoals": "Подцели"
   },
   "AimPage": {
     "invalid_goal_id": "Некорректный ID цели",
